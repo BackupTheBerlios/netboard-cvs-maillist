@@ -1,0 +1,353 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard DrawingPanel.form,1.3,1.4 DrawingPanel.java,1.23,1.24 GUI.java,1.20,1.21
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.form%2C1.3%2C1.4%20DrawingPanel.java%2C1.23%2C1.24%20GUI.java%2C1.20%2C1.21&In-Reply-To=%3C200507151431.j6FEVxI08704%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000148.html">
+   <LINK REL="Next"  HREF="000150.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard DrawingPanel.form,1.3,1.4 DrawingPanel.java,1.23,1.24 GUI.java,1.20,1.21</H1>
+    <B>schylek</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.form%2C1.3%2C1.4%20DrawingPanel.java%2C1.23%2C1.24%20GUI.java%2C1.20%2C1.21&In-Reply-To=%3C200507151431.j6FEVxI08704%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard DrawingPanel.form,1.3,1.4 DrawingPanel.java,1.23,1.24 GUI.java,1.20,1.21">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Fri Jul 15 16:31:59 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000148.html">[netboard-cvs] netboard DrawingPanel.java,1.22,1.23
+</A></li>
+        <LI>Next message: <A HREF="000150.html">[netboard-cvs] netboard DrawingPanel.java,1.24,1.25
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#149">[ date ]</a>
+              <a href="thread.html#149">[ thread ]</a>
+              <a href="subject.html#149">[ subject ]</a>
+              <a href="author.html#149">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv694
+
+Modified Files:
+	DrawingPanel.form DrawingPanel.java GUI.java 
+Log Message:
+added square around eraser.
+
+Index: DrawingPanel.form
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.form,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** DrawingPanel.form	28 Jun 2005 10:09:57 -0000	1.3
+--- DrawingPanel.form	15 Jul 2005 14:31:57 -0000	1.4
+***************
+*** 11,14 ****
+--- 11,15 ----
+      &lt;EventHandler event=&quot;mouseMoved&quot; listener=&quot;java.awt.event.MouseMotionListener&quot; parameters=&quot;java.awt.event.MouseEvent&quot; handler=&quot;formMouseMoved&quot;/&gt;
+      &lt;EventHandler event=&quot;mouseClicked&quot; listener=&quot;java.awt.event.MouseListener&quot; parameters=&quot;java.awt.event.MouseEvent&quot; handler=&quot;formMouseClicked&quot;/&gt;
++     &lt;EventHandler event=&quot;mouseExited&quot; listener=&quot;java.awt.event.MouseListener&quot; parameters=&quot;java.awt.event.MouseEvent&quot; handler=&quot;formMouseExited&quot;/&gt;
+      &lt;EventHandler event=&quot;mousePressed&quot; listener=&quot;java.awt.event.MouseListener&quot; parameters=&quot;java.awt.event.MouseEvent&quot; handler=&quot;formMousePressed&quot;/&gt;
+      &lt;EventHandler event=&quot;mouseReleased&quot; listener=&quot;java.awt.event.MouseListener&quot; parameters=&quot;java.awt.event.MouseEvent&quot; handler=&quot;formMouseReleased&quot;/&gt;
+
+Index: DrawingPanel.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.java,v
+retrieving revision 1.23
+retrieving revision 1.24
+diff -C2 -d -r1.23 -r1.24
+*** DrawingPanel.java	11 Jul 2005 15:59:49 -0000	1.23
+--- DrawingPanel.java	15 Jul 2005 14:31:57 -0000	1.24
+***************
+*** 57,60 ****
+--- 57,63 ----
+                  formMouseClicked(evt);
+              }
++             public void mouseExited(java.awt.event.MouseEvent evt) {
++                 formMouseExited(evt);
++             }
+              public void mousePressed(java.awt.event.MouseEvent evt) {
+                  formMousePressed(evt);
+***************
+*** 68,73 ****
+      // &lt;/editor-fold&gt;//GEN-END:initComponents
+  
+      private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+-         resetXorCoords();
+          
+          if (currentTool == LINE_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0) {
+--- 71,83 ----
+      // &lt;/editor-fold&gt;//GEN-END:initComponents
+  
++     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
++         if(currentTool == ERASER_TOOL &amp;&amp; erasing == false){
++             drawXorEraser(lastXorX - 12, lastXorY - 12, 25, 25);
++             drawXor = false;     
++             repaint();
++         }
++     }//GEN-LAST:event_formMouseExited
++ 
+      private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+          
+          if (currentTool == LINE_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0) {
+***************
+*** 92,95 ****
+--- 102,110 ----
+          }
+          
++         if (currentTool == ERASER_TOOL) {
++             erasing = false;
++             drawXorEraser( lastXorX - 12, lastXorY - 12, 25, 25);
++         }
++         
+          if (getCursor().getType() != java.awt.Cursor.DEFAULT_CURSOR &amp;&amp; brokenLine == false) {
+              java.awt.Cursor normalCursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
+***************
+*** 99,103 ****
+          if(brokenLine == false)
+              resetCoords();
+!                         
+          repaint();
+      }//GEN-LAST:event_formMouseReleased
+--- 114,118 ----
+          if(brokenLine == false)
+              resetCoords();
+!         resetXorCoords();                
+          repaint();
+      }//GEN-LAST:event_formMouseReleased
+***************
+*** 115,118 ****
+--- 130,136 ----
+          }
+          
++         if(currentTool == ERASER_TOOL)
++             erasing = true;
++         
+          if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+              lastButton = 1;
+***************
+*** 148,151 ****
+--- 166,181 ----
+              java.awt.Cursor normalCursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
+              setCursor(normalCursor);
++         } 
++         if (currentTool == ERASER_TOOL) {
++             if (drawXor == true)
++                 drawXorEraser(lastXorX-12, lastXorY-12, 25, 25);
++                 
++             drawXorEraser(evt.getX()-12, evt.getY()-12, 25, 25);
++             
++             erasing = false;
++             drawXor = true;
++             lastXorX = evt.getX();
++             lastXorY = evt.getY();
++             repaint();
+          }
+      }//GEN-LAST:event_formMouseMoved
+***************
+*** 199,203 ****
+          } else if (currentTool == LINE_TOOL &amp;&amp; brokenLine == true) {
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);           
+!         } else if (currentTool == EREASER_TOOL) {
+              if (lastButton == 1) {
+                  currentColor = java.awt.Color.white;
+--- 229,233 ----
+          } else if (currentTool == LINE_TOOL &amp;&amp; brokenLine == true) {
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);           
+!         } else if (currentTool == ERASER_TOOL) {
+              if (lastButton == 1) {
+                  currentColor = java.awt.Color.white;
+***************
+*** 205,209 ****
+                  currentColor = currentFillColor;
+              }
+!             drawErase(evt.getX() - 12, evt.getY() - 12, 25, 25);
+          }
+          repaint();
+--- 235,239 ----
+                  currentColor = currentFillColor;
+              }
+!             drawErase(evt.getX() - 12, evt.getY() - 12, 26, 26);
+          }
+          repaint();
+***************
+*** 230,239 ****
+              lastY = evt.getY();
+              repaint();
+!         } else if (currentTool == EREASER_TOOL) {
+!             if (lastX &lt; 0 || lastY &lt; 0) {
+!                 lastX = evt.getX();
+!                 lastY = evt.getY();
+!                 return;
+!             }
+              
+              if (lastButton == 1) {
+--- 260,264 ----
+              lastY = evt.getY();
+              repaint();
+!         } else if (currentTool == ERASER_TOOL) {
+              
+              if (lastButton == 1) {
+***************
+*** 241,251 ****
+              } else if (lastButton == 3) {
+                  currentColor = currentFillColor;
+!             }            
+  
+!             drawErase(evt.getX() - 12, evt.getY() - 12, 25, 25);
+              lastX = evt.getX();
+              lastY = evt.getY();
+              repaint();
+!         } else if (currentTool == RECT_TOOL) {
+              int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+              int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+--- 266,286 ----
+              } else if (lastButton == 3) {
+                  currentColor = currentFillColor;
+!             }
+!             
+!             if(drawXor == true);
+!                 drawXorEraser(lastXorX - 12, lastXorY - 12, 25, 25);
+!             
+!             drawXorEraser(evt.getX() - 12, evt.getY() - 12, 25, 25);
+  
+!             drawXor = true;
+!             lastXorX = evt.getX();
+!             lastXorY = evt.getY();
+! 
+!             drawErase(evt.getX() - 11, evt.getY() - 11, 24, 24);
+!             
+              lastX = evt.getX();
+              lastY = evt.getY();
+              repaint();
+!         } else if (currentTool == RECT_TOOL &amp;&amp; lastButton==1) {
+              int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+              int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+***************
+*** 261,265 ****
+              lastXorX = x;
+              lastXorY = y;
+!         } else if (currentTool == OVAL_TOOL) {
+              int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+              int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+--- 296,300 ----
+              lastXorX = x;
+              lastXorY = y;
+!         } else if (currentTool == OVAL_TOOL &amp;&amp; lastButton==1) {
+              int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+              int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+***************
+*** 434,437 ****
+--- 469,486 ----
+      
+      /**
++      * Draws square around eraser.
++      */
++     private void drawXorEraser(int x, int y, int w, int h) {
++         java.awt.Graphics2D graphics = drawing.createGraphics();
++         
++         graphics.setXORMode(graphics.getBackground());
++         
++         graphics.setColor(java.awt.Color.gray);
++         graphics.drawRect(x, y, w, h);
++         
++         graphics.setPaintMode();
++     }   
++     
++     /**
+       * Sets the current tool used to draw on the panel
+       * @param tool Tool to set the drawing tool to
+***************
+*** 577,581 ****
+      public static final int RECT_TOOL = 2;
+      public static final int OVAL_TOOL = 3;
+!     public static final int EREASER_TOOL = 4;    
+      /**
+       * Current drawing tool
+--- 626,630 ----
+      public static final int RECT_TOOL = 2;
+      public static final int OVAL_TOOL = 3;
+!     public static final int ERASER_TOOL = 4;    
+      /**
+       * Current drawing tool
+***************
+*** 588,592 ****
+       * @see netboard.DrawingPanel#getCurrentOutlineColor
+       */
+!     private java.awt.Color currentOutlineColor = new java.awt.Color(51, 0, 51);
+      /**
+       * Current filling color
+--- 637,641 ----
+       * @see netboard.DrawingPanel#getCurrentOutlineColor
+       */
+!     private java.awt.Color currentOutlineColor = java.awt.Color.black;
+      /**
+       * Current filling color
+***************
+*** 653,656 ****
+--- 702,709 ----
+       */    
+      private boolean brokenLine = false;
++     /**
++      * Tells if we are erasing.
++      */    
++     private boolean erasing = false;
+      /**
+       * Tells if we have to redraw last XOR drawing (to make it disappear).
+
+Index: GUI.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.java,v
+retrieving revision 1.20
+retrieving revision 1.21
+diff -C2 -d -r1.20 -r1.21
+*** GUI.java	5 Jul 2005 09:52:46 -0000	1.20
+--- GUI.java	15 Jul 2005 14:31:57 -0000	1.21
+***************
+*** 590,594 ****
+      
+      private void ereaserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ereaserButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_ereaserButtonActionPerformed
+      
+--- 590,594 ----
+      
+      private void ereaserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ereaserButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.ERASER_TOOL);
+      }//GEN-LAST:event_ereaserButtonActionPerformed
+      
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000148.html">[netboard-cvs] netboard DrawingPanel.java,1.22,1.23
+</A></li>
+	<LI>Next message: <A HREF="000150.html">[netboard-cvs] netboard DrawingPanel.java,1.24,1.25
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#149">[ date ]</a>
+              <a href="thread.html#149">[ thread ]</a>
+              <a href="subject.html#149">[ subject ]</a>
+              <a href="author.html#149">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

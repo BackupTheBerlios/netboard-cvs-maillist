@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard DrawingPanel.form,1.2,1.3 DrawingPanel.java,1.11,1.12
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-June/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.form%2C1.2%2C1.3%20DrawingPanel.java%2C1.11%2C1.12&In-Reply-To=%3C200506281010.j5SAAVI01983%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000128.html">
+   <LINK REL="Next"  HREF="000125.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard DrawingPanel.form,1.2,1.3 DrawingPanel.java,1.11,1.12</H1>
+    <B>schylek</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.form%2C1.2%2C1.3%20DrawingPanel.java%2C1.11%2C1.12&In-Reply-To=%3C200506281010.j5SAAVI01983%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard DrawingPanel.form,1.2,1.3 DrawingPanel.java,1.11,1.12">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Tue Jun 28 12:10:31 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000128.html">[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.16,1.17 GUI.html,1.16,1.17 Main.html,1.16,1.17 SerializableImage.html,1.16,1.17 SocketConnection.Exception.html,1.9,1.10 SocketConnection.html,1.12,1.13 package-frame.html,1.16,1.17 package-summary.html,1.16,1.17 package-tree.html,1.16,1.17 package-use.html,1.16,1.17
+</A></li>
+        <LI>Next message: <A HREF="000125.html">[netboard-cvs] netboard GUI.java,1.16,1.17
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv6446
+
+Modified Files:
+	DrawingPanel.form DrawingPanel.java 
+Log Message:
+behavior of drawing tools changed.
+
+Index: DrawingPanel.form
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.form,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** DrawingPanel.form	21 May 2005 14:41:27 -0000	1.2
+--- DrawingPanel.form	28 Jun 2005 10:09:57 -0000	1.3
+***************
+*** 12,15 ****
+--- 12,16 ----
+      &lt;EventHandler event=&quot;mouseClicked&quot; listener=&quot;java.awt.event.MouseListener&quot; parameters=&quot;java.awt.event.MouseEvent&quot; handler=&quot;formMouseClicked&quot;/&gt;
+      &lt;EventHandler event=&quot;mousePressed&quot; listener=&quot;java.awt.event.MouseListener&quot; parameters=&quot;java.awt.event.MouseEvent&quot; handler=&quot;formMousePressed&quot;/&gt;
++     &lt;EventHandler event=&quot;mouseReleased&quot; listener=&quot;java.awt.event.MouseListener&quot; parameters=&quot;java.awt.event.MouseEvent&quot; handler=&quot;formMouseReleased&quot;/&gt;
+    &lt;/Events&gt;
+    &lt;AuxValues&gt;
+
+Index: DrawingPanel.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.java,v
+retrieving revision 1.11
+retrieving revision 1.12
+diff -C2 -d -r1.11 -r1.12
+*** DrawingPanel.java	29 May 2005 09:14:57 -0000	1.11
+--- DrawingPanel.java	28 Jun 2005 10:09:57 -0000	1.12
+***************
+*** 2,6 ****
+   * $Id$
+   *
+!  * Copyright (C) 2005  Marcin 'golish' Goliszewski &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/netboard-cvs">golish at niente.eu.org</A>&gt;
+   *
+   * This program is free software; you can redistribute it and/or
+--- 2,7 ----
+   * $Id$
+   *
+!  * Copyright (C) 2005  Marcin 'golish' Goliszewski &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/netboard-cvs">golish at niente.eu.org</A>&gt;,
+!  *                     Slawomir 'schylek' Chylek &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/netboard-cvs">schylek at aster.pl</A>&gt;
+   *
+   * This program is free software; you can redistribute it and/or
+***************
+*** 25,28 ****
+--- 26,30 ----
+   * A derivative of &lt;CODE&gt;javax.swing.JPanel&lt;/CODE&gt; implementing drawing board capabilities
+   * @author &lt;a href=&quot;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/netboard-cvs">golish at niente.eu.org</A>&quot;&gt;Marcin 'golish' Goliszewski&lt;/a&gt;
++  * @author &lt;a href=&quot;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/netboard-cvs">schylek at aster.pl</A>&quot;&gt;Slawomir 'schylek' Chylek&lt;/a&gt;
+   */
+  public class DrawingPanel extends javax.swing.JPanel {
+***************
+*** 58,61 ****
+--- 60,66 ----
+                  formMousePressed(evt);
+              }
++             public void mouseReleased(java.awt.event.MouseEvent evt) {
++                 formMouseReleased(evt);
++             }
+          });
+  
+***************
+*** 63,67 ****
+--- 68,127 ----
+      // &lt;/editor-fold&gt;//GEN-END:initComponents
+  
++     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
++         java.awt.Graphics2D graphics = drawing.createGraphics();
++         if (currentTool.equals(&quot;Line&quot;) &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0) {
++             if(evt.getButton() == java.awt.event.MouseEvent.BUTTON3)
++                 return; 
++             graphics.setColor(currentOutlineColor);
++             graphics.drawLine(evt.getX(), evt.getY(), lastX, lastY);
++         }
++         if (currentTool.equals(&quot;Oval&quot;) &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0){
++                 int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
++                 int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
++             
++                 if (fill == true) {
++                     graphics.setColor(currentFillColor);                
++                     graphics.fillOval(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));
++                 }
++                 
++                 if (outline == true) {
++                     graphics.setColor(currentOutlineColor);
++                     graphics.drawOval(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
++                 }
++         }
++         if (currentTool.equals(&quot;Rectangle&quot;) &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0){
++                 int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
++                 int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
++             
++                 if (fill == true) {
++                     graphics.setColor(currentFillColor);                
++                     graphics.fillRect(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));
++                 }
++                 
++                 if (outline == true) {
++                     graphics.setColor(currentOutlineColor);
++                     graphics.drawRect(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
++                 }
++                 
++         }
++         if(getCursor().getType()!=java.awt.Cursor.DEFAULT_CURSOR){
++                 java.awt.Cursor normalCursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
++                 setCursor(normalCursor);
++         }
++         repaint();
++         resetCoords();
++     }//GEN-LAST:event_formMouseReleased
++ 
+      private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
++         java.awt.Cursor moveCursor = new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR);
++                 setCursor(moveCursor);
++         if ((currentTool.equals(&quot;Line&quot;) || currentTool.equals(&quot;Oval&quot;) || currentTool.equals(&quot;Rectangle&quot;) )
++                     &amp;&amp; evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
++                 lastX = evt.getX();
++                 lastY = evt.getY();        
++                 return;
++             }
++         
++         
+          if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+              lastButton = 1;
+***************
+*** 70,74 ****
+          }
+      }//GEN-LAST:event_formMousePressed
+! 
+      private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+          Main.getGUI().setCoords(evt.getX(), evt.getY());
+--- 130,134 ----
+          }
+      }//GEN-LAST:event_formMousePressed
+!     
+      private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+          Main.getGUI().setCoords(evt.getX(), evt.getY());
+***************
+*** 106,114 ****
+              graphics.drawLine(evt.getX(), evt.getY(), evt.getX(), evt.getY());
+              resetCoords();
+!         } else if (currentTool.equals(&quot;Line&quot;)) {
+              if (lastX &lt; 0 || lastY &lt; 0) {
+                  lastX = evt.getX();
+                  lastY = evt.getY();
+                  return;
+              } else {
+                  graphics.setColor(currentOutlineColor);
+--- 166,175 ----
+              graphics.drawLine(evt.getX(), evt.getY(), evt.getX(), evt.getY());
+              resetCoords();
+!         } else if (currentTool.equals(&quot;Line&quot;) &amp;&amp; evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+              if (lastX &lt; 0 || lastY &lt; 0) {
+                  lastX = evt.getX();
+                  lastY = evt.getY();
+                  return;
++             
+              } else {
+                  graphics.setColor(currentOutlineColor);
+***************
+*** 117,162 ****
+                  lastY = evt.getY();
+              }
+-         } else if (currentTool.equals(&quot;Oval&quot;)) {
+-             if (lastX &lt; 0 || lastY &lt; 0) {
+-                 lastX = evt.getX();
+-                 lastY = evt.getY();
+-                 return;
+-             } else {
+-                 int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+-                 int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+-             
+-                 if (outline == true) {
+-                     graphics.setColor(currentOutlineColor);
+-                     graphics.drawOval(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
+-                 }
+-                 
+-                 if (fill == true) {
+-                     graphics.setColor(currentFillColor);                
+-                     graphics.fillOval(x + 1, y + 1, Math.abs(evt.getX() - lastX) - 2, Math.abs(evt.getY() - lastY) - 2);
+-                 }
+-                 
+-                 resetCoords();
+-             }
+-         } else if (currentTool.equals(&quot;Rectangle&quot;)) {
+-             if (lastX &lt; 0 || lastY &lt; 0) {
+-                 lastX = evt.getX();
+-                 lastY = evt.getY();
+-                 return;
+-             } else {
+-                 int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+-                 int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+-             
+-                 if (outline == true) {
+-                     graphics.setColor(currentOutlineColor);
+-                     graphics.drawRect(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));
+-                 }
+- 
+-                 if (fill == true) {                
+-                     graphics.setColor(currentFillColor);                
+-                     graphics.fillRect(x + 1, y + 1, Math.abs(evt.getX() - lastX) - 1, Math.abs(evt.getY() - lastY) - 1);
+-                 }
+-                 
+-                 resetCoords();
+-             }
+          } else if (currentTool.equals(&quot;Ereaser&quot;)) {
+              if (lastButton == 1) {
+--- 178,181 ----
+***************
+*** 166,170 ****
+              }
+              
+!             graphics.fillRect(evt.getX(), evt.getY(), 25, 25);
+          }
+          
+--- 185,189 ----
+              }
+              
+!             graphics.fillRect(evt.getX()-12, evt.getY()-12, 25, 25);
+          }
+          
+***************
+*** 207,211 ****
+              }            
+  
+!             graphics.fillRect(evt.getX(), evt.getY(), 25, 25);
+              lastX = evt.getX();
+              lastY = evt.getY();
+--- 226,230 ----
+              }            
+  
+!             graphics.fillRect(evt.getX()-12, evt.getY()-12, 25, 25);
+              lastX = evt.getX();
+              lastY = evt.getY();
+***************
+*** 392,396 ****
+       * @see netboard.DrawingPanel#getOutline
+       */    
+!     private boolean outline = true;    
+      // End of my variables declaration
+  }
+--- 411,417 ----
+       * @see netboard.DrawingPanel#getOutline
+       */    
+!     private boolean outline = true;
+!     
+      // End of my variables declaration
++ 
+  }
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000128.html">[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.16,1.17 GUI.html,1.16,1.17 Main.html,1.16,1.17 SerializableImage.html,1.16,1.17 SocketConnection.Exception.html,1.9,1.10 SocketConnection.html,1.12,1.13 package-frame.html,1.16,1.17 package-summary.html,1.16,1.17 package-tree.html,1.16,1.17 package-use.html,1.16,1.17
+</A></li>
+	<LI>Next message: <A HREF="000125.html">[netboard-cvs] netboard GUI.java,1.16,1.17
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

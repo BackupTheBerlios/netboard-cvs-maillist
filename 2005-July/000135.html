@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard GUI.java,1.19,1.20
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20GUI.java%2C1.19%2C1.20&In-Reply-To=%3C200507050953.j659rII06746%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000134.html">
+   <LINK REL="Next"  HREF="000136.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard GUI.java,1.19,1.20</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20GUI.java%2C1.19%2C1.20&In-Reply-To=%3C200507050953.j659rII06746%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard GUI.java,1.19,1.20">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Tue Jul  5 11:53:18 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000134.html">[netboard-cvs] netboard/dist netboard.jar,1.38,1.39
+</A></li>
+        <LI>Next message: <A HREF="000136.html">[netboard-cvs] netboard DrawingPanel.java,1.14,1.15
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#135">[ date ]</a>
+              <a href="thread.html#135">[ thread ]</a>
+              <a href="subject.html#135">[ subject ]</a>
+              <a href="author.html#135">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv20744
+
+Modified Files:
+	GUI.java 
+Log Message:
+fixed bugs introduced in last commit + more of the String -&gt; int
+changes.
+
+
+Index: GUI.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.java,v
+retrieving revision 1.19
+retrieving revision 1.20
+diff -C2 -d -r1.19 -r1.20
+*** GUI.java	4 Jul 2005 17:42:47 -0000	1.19
+--- GUI.java	5 Jul 2005 09:52:46 -0000	1.20
+***************
+*** 415,419 ****
+  
+      private void fillColorChooserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillColorChooserButtonActionPerformed
+!         colorChooserType = &quot;fill&quot;;
+          
+          colorChooserDialog = javax.swing.JColorChooser.createDialog(
+--- 415,419 ----
+  
+      private void fillColorChooserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillColorChooserButtonActionPerformed
+!         colorChooserType = FILL_COLOR_CHOOSER;
+          
+          colorChooserDialog = javax.swing.JColorChooser.createDialog(
+***************
+*** 625,629 ****
+      
+      private void outlineColorChooserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outlineColorChooserButtonActionPerformed
+!         colorChooserType = &quot;outline&quot;;
+          
+          colorChooserDialog = javax.swing.JColorChooser.createDialog(
+--- 625,629 ----
+      
+      private void outlineColorChooserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outlineColorChooserButtonActionPerformed
+!         colorChooserType = OUTLINE_COLOR_CHOOSER;
+          
+          colorChooserDialog = javax.swing.JColorChooser.createDialog(
+***************
+*** 644,670 ****
+  
+      private void colorChooserOkButtonActionPerformed(java.awt.event.ActionEvent evt) {
+!         if (colorChooserType.equals(&quot;outline&quot;)) {
+              changeOutlineColor(colorChooser.getColor());
+!         } else if (colorChooserType.equals(&quot;fill&quot;)) {
+              changeFillColor(colorChooser.getColor());
+          }
+          
+!         colorChooserType = &quot;&quot;;
+      }
+      
+      private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_rectangleButtonActionPerformed
+      
+      private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_ovalButtonActionPerformed
+      
+      private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_lineButtonActionPerformed
+      
+      private void penButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_penButtonActionPerformed
+      
+--- 644,670 ----
+  
+      private void colorChooserOkButtonActionPerformed(java.awt.event.ActionEvent evt) {
+!         if (colorChooserType == OUTLINE_COLOR_CHOOSER) {
+              changeOutlineColor(colorChooser.getColor());
+!         } else if (colorChooserType == FILL_COLOR_CHOOSER) {
+              changeFillColor(colorChooser.getColor());
+          }
+          
+!         colorChooserType = NO_COLOR_CHOOSER;
+      }
+      
+      private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.RECT_TOOL);
+      }//GEN-LAST:event_rectangleButtonActionPerformed
+      
+      private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.OVAL_TOOL);
+      }//GEN-LAST:event_ovalButtonActionPerformed
+      
+      private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.LINE_TOOL);
+      }//GEN-LAST:event_lineButtonActionPerformed
+      
+      private void penButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.PEN_TOOL);
+      }//GEN-LAST:event_penButtonActionPerformed
+      
+***************
+*** 779,783 ****
+      // My variables declaration
+      private javax.swing.JDialog colorChooserDialog;
+!     private String colorChooserType = &quot;&quot;;
+      /**
+       * Text which was previously displayed on the status bar
+--- 779,786 ----
+      // My variables declaration
+      private javax.swing.JDialog colorChooserDialog;
+!     private static final int NO_COLOR_CHOOSER = 1;    
+!     private static final int OUTLINE_COLOR_CHOOSER = 0;
+!     private static final int FILL_COLOR_CHOOSER = 1;
+!     private int colorChooserType = NO_COLOR_CHOOSER;
+      /**
+       * Text which was previously displayed on the status bar
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000134.html">[netboard-cvs] netboard/dist netboard.jar,1.38,1.39
+</A></li>
+	<LI>Next message: <A HREF="000136.html">[netboard-cvs] netboard DrawingPanel.java,1.14,1.15
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#135">[ date ]</a>
+              <a href="thread.html#135">[ thread ]</a>
+              <a href="subject.html#135">[ subject ]</a>
+              <a href="author.html#135">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

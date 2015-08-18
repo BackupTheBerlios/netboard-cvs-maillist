@@ -1,0 +1,648 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.9,1.10 GUI.PNGFilter.html,1.2,1.3 GUI.html,1.9,1.10 Main.html,1.9,1.10 SerializableImage.html,1.9,1.10 SocketConnection.CommunicationTask.html,1.4,1.5 SocketConnection.Exception.html,1.2,1.3 SocketConnection.html,1.5,1.6 package-frame.html,1.9,1.10 package-summary.html,1.9,1.10 package-tree.html,1.9,1.10 package-use.html,1.9,1.10
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-May/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard/dist/javadoc/netboard%20DrawingPanel.html%2C1.9%2C1.10%20GUI.PNGFilter.html%2C1.2%2C1.3%20GUI.html%2C1.9%2C1.10%20Main.html%2C1.9%2C1.10%20SerializableImage.html%2C1.9%2C1.10%20SocketConnection.CommunicationTask.html%2C1.4%2C1.5%20SocketConnection.Exception.html%2C1.2%2C1.3%20SocketConnection.html%2C1.5%2C1.6%20package-frame.html%2C1.9%2C1.10%20package-summary.html%2C1.9%2C1.10%20package-tree.html%2C1.9%2C1.10%20package-use.html%2C1.9%2C1.10&In-Reply-To=%3C200505151156.j4FBuTm02780%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000083.html">
+   <LINK REL="Next"  HREF="000087.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.9,1.10 GUI.PNGFilter.html,1.2,1.3 GUI.html,1.9,1.10 Main.html,1.9,1.10 SerializableImage.html,1.9,1.10 SocketConnection.CommunicationTask.html,1.4,1.5 SocketConnection.Exception.html,1.2,1.3 SocketConnection.html,1.5,1.6 package-frame.html,1.9,1.10 package-summary.html,1.9,1.10 package-tree.html,1.9,1.10 package-use.html,1.9,1.10</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard/dist/javadoc/netboard%20DrawingPanel.html%2C1.9%2C1.10%20GUI.PNGFilter.html%2C1.2%2C1.3%20GUI.html%2C1.9%2C1.10%20Main.html%2C1.9%2C1.10%20SerializableImage.html%2C1.9%2C1.10%20SocketConnection.CommunicationTask.html%2C1.4%2C1.5%20SocketConnection.Exception.html%2C1.2%2C1.3%20SocketConnection.html%2C1.5%2C1.6%20package-frame.html%2C1.9%2C1.10%20package-summary.html%2C1.9%2C1.10%20package-tree.html%2C1.9%2C1.10%20package-use.html%2C1.9%2C1.10&In-Reply-To=%3C200505151156.j4FBuTm02780%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.9,1.10 GUI.PNGFilter.html,1.2,1.3 GUI.html,1.9,1.10 Main.html,1.9,1.10 SerializableImage.html,1.9,1.10 SocketConnection.CommunicationTask.html,1.4,1.5 SocketConnection.Exception.html,1.2,1.3 SocketConnection.html,1.5,1.6 package-frame.html,1.9,1.10 package-summary.html,1.9,1.10 package-tree.html,1.9,1.10 package-use.html,1.9,1.10">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sun May 15 13:56:29 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000083.html">[netboard-cvs] netboard/dist/javadoc allclasses-frame.html,1.9,1.10 allclasses-noframe.html,1.9,1.10 constant-values.html,1.9,1.10 deprecated-list.html,1.9,1.10 help-doc.html,1.9,1.10 index-all.html,1.9,1.10 index.html,1.9,1.10 overview-tree.html,1.9,1.10 serialized-form.html,1.9,1.10
+</A></li>
+        <LI>Next message: <A HREF="000087.html">[netboard-cvs] netboard/dist netboard.jar,1.24,1.25
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard/dist/javadoc/netboard
+In directory sheep:/tmp/cvs-serv12811/dist/javadoc/netboard
+
+Modified Files:
+	DrawingPanel.html GUI.PNGFilter.html GUI.html Main.html 
+	SerializableImage.html SocketConnection.CommunicationTask.html 
+	SocketConnection.Exception.html SocketConnection.html 
+	package-frame.html package-summary.html package-tree.html 
+	package-use.html 
+Log Message:
+* some more improvents regarding the filling in DrawingPanel.
+* changed the default communicationFreq in SocketConnection.
+* javadoc + jar updated to meet all changes.
+
+
+Index: DrawingPanel.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/DrawingPanel.html,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** DrawingPanel.html	15 May 2005 11:11:34 -0000	1.9
+--- DrawingPanel.html	15 May 2005 11:56:27 -0000	1.10
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:36 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  DrawingPanel
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:52:55 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  DrawingPanel
+***************
+*** 207,210 ****
+--- 207,218 ----
+  &lt;TR BGCOLOR=&quot;white&quot; CLASS=&quot;TableRowColor&quot;&gt;
+  &lt;TD ALIGN=&quot;right&quot; VALIGN=&quot;top&quot; WIDTH=&quot;1%&quot;&gt;&lt;FONT SIZE=&quot;-1&quot;&gt;
++ &lt;CODE&gt;private &nbsp;boolean&lt;/CODE&gt;&lt;/FONT&gt;&lt;/TD&gt;
++ &lt;TD&gt;&lt;CODE&gt;&lt;B&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#fill&quot;&gt;fill&lt;/A&gt;&lt;/B&gt;&lt;/CODE&gt;
++ 
++ &lt;BR&gt;
++ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tells if the shapes should be filled or not&lt;/TD&gt;
++ &lt;/TR&gt;
++ &lt;TR BGCOLOR=&quot;white&quot; CLASS=&quot;TableRowColor&quot;&gt;
++ &lt;TD ALIGN=&quot;right&quot; VALIGN=&quot;top&quot; WIDTH=&quot;1%&quot;&gt;&lt;FONT SIZE=&quot;-1&quot;&gt;
+  &lt;CODE&gt;private &nbsp;int&lt;/CODE&gt;&lt;/FONT&gt;&lt;/TD&gt;
+  &lt;TD&gt;&lt;CODE&gt;&lt;B&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#lastX&quot;&gt;lastX&lt;/A&gt;&lt;/B&gt;&lt;/CODE&gt;
+***************
+*** 382,385 ****
+--- 390,401 ----
+  &lt;TD ALIGN=&quot;right&quot; VALIGN=&quot;top&quot; WIDTH=&quot;1%&quot;&gt;&lt;FONT SIZE=&quot;-1&quot;&gt;
+  &lt;CODE&gt;&nbsp;void&lt;/CODE&gt;&lt;/FONT&gt;&lt;/TD&gt;
++ &lt;TD&gt;&lt;CODE&gt;&lt;B&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#setFill(boolean)&quot;&gt;setFill&lt;/A&gt;&lt;/B&gt;(boolean&nbsp;f)&lt;/CODE&gt;
++ 
++ &lt;BR&gt;
++ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the variable deciding if the shapes should be filled or not&lt;/TD&gt;
++ &lt;/TR&gt;
++ &lt;TR BGCOLOR=&quot;white&quot; CLASS=&quot;TableRowColor&quot;&gt;
++ &lt;TD ALIGN=&quot;right&quot; VALIGN=&quot;top&quot; WIDTH=&quot;1%&quot;&gt;&lt;FONT SIZE=&quot;-1&quot;&gt;
++ &lt;CODE&gt;&nbsp;void&lt;/CODE&gt;&lt;/FONT&gt;&lt;/TD&gt;
+  &lt;TD&gt;&lt;CODE&gt;&lt;B&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#setImage(java.awt.image.BufferedImage)&quot;&gt;setImage&lt;/A&gt;&lt;/B&gt;(java.awt.image.BufferedImage&nbsp;image)&lt;/CODE&gt;
+  
+***************
+*** 454,458 ****
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+--- 470,474 ----
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#setCurrentTool(java.lang.String)&quot;&gt;&lt;CODE&gt;setCurrentTool(String)&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+***************
+*** 466,470 ****
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+--- 482,487 ----
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#setCurrentOutlineColor(java.awt.Color)&quot;&gt;&lt;CODE&gt;setCurrentOutlineColor(java.awt.Color)&lt;/CODE&gt;&lt;/A&gt;, 
+! &lt;A HREF=&quot;../netboard/DrawingPanel.html#getCurrentOutlineColor()&quot;&gt;&lt;CODE&gt;getCurrentOutlineColor()&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+***************
+*** 478,482 ****
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+--- 495,500 ----
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#setCurrentFillColor(java.awt.Color)&quot;&gt;&lt;CODE&gt;setCurrentFillColor(java.awt.Color)&lt;/CODE&gt;&lt;/A&gt;, 
+! &lt;A HREF=&quot;../netboard/DrawingPanel.html#getCurrentFillColor()&quot;&gt;&lt;CODE&gt;getCurrentFillColor()&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+***************
+*** 490,494 ****
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+--- 508,513 ----
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#setImage(java.awt.image.BufferedImage)&quot;&gt;&lt;CODE&gt;setImage(java.awt.image.BufferedImage)&lt;/CODE&gt;&lt;/A&gt;, 
+! &lt;A HREF=&quot;../netboard/DrawingPanel.html#getImage()&quot;&gt;&lt;CODE&gt;getImage()&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+***************
+*** 502,506 ****
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+--- 521,525 ----
+  &lt;P&gt;
+  &lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#resetCoords()&quot;&gt;&lt;CODE&gt;resetCoords()&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DL&gt;
+  &lt;HR&gt;
+***************
+*** 514,518 ****
+--- 533,549 ----
+  &lt;P&gt;
+  &lt;DL&gt;
++ &lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#resetCoords()&quot;&gt;&lt;CODE&gt;resetCoords()&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DL&gt;
++ &lt;HR&gt;
++ 
++ &lt;A NAME=&quot;fill&quot;&gt;&lt;!-- --&gt;&lt;/A&gt;&lt;H3&gt;
++ fill&lt;/H3&gt;
++ &lt;PRE&gt;
++ private boolean &lt;B&gt;fill&lt;/B&gt;&lt;/PRE&gt;
++ &lt;DL&gt;
++ &lt;DD&gt;Tells if the shapes should be filled or not
++ &lt;P&gt;
++ &lt;DL&gt;
++ &lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#setFill(boolean)&quot;&gt;&lt;CODE&gt;setFill(boolean)&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DL&gt;
+  
+***************
+*** 619,623 ****
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;Parameters:&lt;/B&gt;&lt;DD&gt;&lt;CODE&gt;tool&lt;/CODE&gt; - Tool to set the drawing tool to&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+--- 650,654 ----
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;Parameters:&lt;/B&gt;&lt;DD&gt;&lt;CODE&gt;tool&lt;/CODE&gt; - Tool to set the drawing tool to&lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#currentTool&quot;&gt;&lt;CODE&gt;currentTool&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+***************
+*** 633,637 ****
+  &lt;DD&gt;&lt;DL&gt;
+  
+! &lt;DT&gt;&lt;B&gt;Returns:&lt;/B&gt;&lt;DD&gt;Current outline drawing color&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+--- 664,668 ----
+  &lt;DD&gt;&lt;DL&gt;
+  
+! &lt;DT&gt;&lt;B&gt;Returns:&lt;/B&gt;&lt;DD&gt;Current outline drawing color&lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#currentOutlineColor&quot;&gt;&lt;CODE&gt;currentOutlineColor&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+***************
+*** 647,651 ****
+  &lt;DD&gt;&lt;DL&gt;
+  
+! &lt;DT&gt;&lt;B&gt;Returns:&lt;/B&gt;&lt;DD&gt;Current filling color&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+--- 678,682 ----
+  &lt;DD&gt;&lt;DL&gt;
+  
+! &lt;DT&gt;&lt;B&gt;Returns:&lt;/B&gt;&lt;DD&gt;Current filling color&lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#currentOutlineColor&quot;&gt;&lt;CODE&gt;currentOutlineColor&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+***************
+*** 660,664 ****
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;Parameters:&lt;/B&gt;&lt;DD&gt;&lt;CODE&gt;color&lt;/CODE&gt; - Color to set the current drawing color to&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+--- 691,695 ----
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;Parameters:&lt;/B&gt;&lt;DD&gt;&lt;CODE&gt;color&lt;/CODE&gt; - Color to set the current outline drawing color to&lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#currentOutlineColor&quot;&gt;&lt;CODE&gt;currentOutlineColor&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+***************
+*** 673,677 ****
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;Parameters:&lt;/B&gt;&lt;DD&gt;&lt;CODE&gt;color&lt;/CODE&gt; - Color to set the current drawing color to&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+--- 704,708 ----
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;Parameters:&lt;/B&gt;&lt;DD&gt;&lt;CODE&gt;color&lt;/CODE&gt; - Color to set the current filling color to&lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#currentFillColor&quot;&gt;&lt;CODE&gt;currentFillColor&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+***************
+*** 686,690 ****
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+--- 717,722 ----
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#lastX&quot;&gt;&lt;CODE&gt;lastX&lt;/CODE&gt;&lt;/A&gt;, 
+! &lt;A HREF=&quot;../netboard/DrawingPanel.html#lastY&quot;&gt;&lt;CODE&gt;lastY&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+***************
+*** 700,704 ****
+  &lt;DD&gt;&lt;DL&gt;
+  
+! &lt;DT&gt;&lt;B&gt;Returns:&lt;/B&gt;&lt;DD&gt;Image from the panel&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+--- 732,736 ----
+  &lt;DD&gt;&lt;DL&gt;
+  
+! &lt;DT&gt;&lt;B&gt;Returns:&lt;/B&gt;&lt;DD&gt;Image from the panel&lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#drawing&quot;&gt;&lt;CODE&gt;drawing&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+***************
+*** 713,717 ****
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;Parameters:&lt;/B&gt;&lt;DD&gt;&lt;CODE&gt;image&lt;/CODE&gt; - New image to be shown on the panel&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+--- 745,749 ----
+  &lt;P&gt;
+  &lt;DD&gt;&lt;DL&gt;
+! &lt;DT&gt;&lt;B&gt;Parameters:&lt;/B&gt;&lt;DD&gt;&lt;CODE&gt;image&lt;/CODE&gt; - New image to be shown on the panel&lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#drawing&quot;&gt;&lt;CODE&gt;drawing&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+***************
+*** 725,728 ****
+--- 757,773 ----
+  &lt;DD&gt;&lt;DL&gt;
+  &lt;/DL&gt;
++ &lt;/DD&gt;
++ &lt;/DL&gt;
++ &lt;HR&gt;
++ 
++ &lt;A NAME=&quot;setFill(boolean)&quot;&gt;&lt;!-- --&gt;&lt;/A&gt;&lt;H3&gt;
++ setFill&lt;/H3&gt;
++ &lt;PRE&gt;
++ public void &lt;B&gt;setFill&lt;/B&gt;(boolean&nbsp;f)&lt;/PRE&gt;
++ &lt;DL&gt;
++ &lt;DD&gt;Sets the variable deciding if the shapes should be filled or not
++ &lt;P&gt;
++ &lt;DD&gt;&lt;DL&gt;
++ &lt;DT&gt;&lt;B&gt;Parameters:&lt;/B&gt;&lt;DD&gt;&lt;CODE&gt;f&lt;/CODE&gt; - Tells if the shapes should be filled or not&lt;DT&gt;&lt;B&gt;See Also:&lt;/B&gt;&lt;DD&gt;&lt;A HREF=&quot;../netboard/DrawingPanel.html#fill&quot;&gt;&lt;CODE&gt;fill&lt;/CODE&gt;&lt;/A&gt;&lt;/DL&gt;
+  &lt;/DD&gt;
+  &lt;/DL&gt;
+
+Index: GUI.PNGFilter.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/GUI.PNGFilter.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** GUI.PNGFilter.html	15 May 2005 11:11:34 -0000	1.2
+--- GUI.PNGFilter.html	15 May 2005 11:56:27 -0000	1.3
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:51 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  GUI.PNGFilter
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:06 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  GUI.PNGFilter
+
+Index: GUI.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/GUI.html,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** GUI.html	15 May 2005 11:11:34 -0000	1.9
+--- GUI.html	15 May 2005 11:56:27 -0000	1.10
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:45 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  GUI
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:01 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  GUI
+***************
+*** 306,309 ****
+--- 306,317 ----
+  &lt;TR BGCOLOR=&quot;white&quot; CLASS=&quot;TableRowColor&quot;&gt;
+  &lt;TD ALIGN=&quot;right&quot; VALIGN=&quot;top&quot; WIDTH=&quot;1%&quot;&gt;&lt;FONT SIZE=&quot;-1&quot;&gt;
++ &lt;CODE&gt;private &nbsp;javax.swing.JCheckBox&lt;/CODE&gt;&lt;/FONT&gt;&lt;/TD&gt;
++ &lt;TD&gt;&lt;CODE&gt;&lt;B&gt;&lt;A HREF=&quot;../netboard/GUI.html#fillCheckBox&quot;&gt;fillCheckBox&lt;/A&gt;&lt;/B&gt;&lt;/CODE&gt;
++ 
++ &lt;BR&gt;
++ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/TD&gt;
++ &lt;/TR&gt;
++ &lt;TR BGCOLOR=&quot;white&quot; CLASS=&quot;TableRowColor&quot;&gt;
++ &lt;TD ALIGN=&quot;right&quot; VALIGN=&quot;top&quot; WIDTH=&quot;1%&quot;&gt;&lt;FONT SIZE=&quot;-1&quot;&gt;
+  &lt;CODE&gt;private &nbsp;javax.swing.JButton&lt;/CODE&gt;&lt;/FONT&gt;&lt;/TD&gt;
+  &lt;TD&gt;&lt;CODE&gt;&lt;B&gt;&lt;A HREF=&quot;../netboard/GUI.html#fillColorChooserButton&quot;&gt;fillColorChooserButton&lt;/A&gt;&lt;/B&gt;&lt;/CODE&gt;
+***************
+*** 666,669 ****
+--- 674,685 ----
+  &lt;TD ALIGN=&quot;right&quot; VALIGN=&quot;top&quot; WIDTH=&quot;1%&quot;&gt;&lt;FONT SIZE=&quot;-1&quot;&gt;
+  &lt;CODE&gt;private &nbsp;void&lt;/CODE&gt;&lt;/FONT&gt;&lt;/TD&gt;
++ &lt;TD&gt;&lt;CODE&gt;&lt;B&gt;&lt;A HREF=&quot;../netboard/GUI.html#fillCheckBoxActionPerformed(java.awt.event.ActionEvent)&quot;&gt;fillCheckBoxActionPerformed&lt;/A&gt;&lt;/B&gt;(java.awt.event.ActionEvent&nbsp;evt)&lt;/CODE&gt;
++ 
++ &lt;BR&gt;
++ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/TD&gt;
++ &lt;/TR&gt;
++ &lt;TR BGCOLOR=&quot;white&quot; CLASS=&quot;TableRowColor&quot;&gt;
++ &lt;TD ALIGN=&quot;right&quot; VALIGN=&quot;top&quot; WIDTH=&quot;1%&quot;&gt;&lt;FONT SIZE=&quot;-1&quot;&gt;
++ &lt;CODE&gt;private &nbsp;void&lt;/CODE&gt;&lt;/FONT&gt;&lt;/TD&gt;
+  &lt;TD&gt;&lt;CODE&gt;&lt;B&gt;&lt;A HREF=&quot;../netboard/GUI.html#fillColorChooserButtonActionPerformed(java.awt.event.ActionEvent)&quot;&gt;fillColorChooserButtonActionPerformed&lt;/A&gt;&lt;/B&gt;(java.awt.event.ActionEvent&nbsp;evt)&lt;/CODE&gt;
+  
+***************
+*** 1021,1024 ****
+--- 1037,1050 ----
+  &lt;HR&gt;
+  
++ &lt;A NAME=&quot;fillCheckBox&quot;&gt;&lt;!-- --&gt;&lt;/A&gt;&lt;H3&gt;
++ fillCheckBox&lt;/H3&gt;
++ &lt;PRE&gt;
++ private javax.swing.JCheckBox &lt;B&gt;fillCheckBox&lt;/B&gt;&lt;/PRE&gt;
++ &lt;DL&gt;
++ &lt;DL&gt;
++ &lt;/DL&gt;
++ &lt;/DL&gt;
++ &lt;HR&gt;
++ 
+  &lt;A NAME=&quot;fillColorChooserButton&quot;&gt;&lt;!-- --&gt;&lt;/A&gt;&lt;H3&gt;
+  fillColorChooserButton&lt;/H3&gt;
+***************
+*** 1251,1254 ****
+--- 1277,1291 ----
+   always regenerated by the Form Editor.
+  &lt;P&gt;
++ &lt;DD&gt;&lt;DL&gt;
++ &lt;/DL&gt;
++ &lt;/DD&gt;
++ &lt;/DL&gt;
++ &lt;HR&gt;
++ 
++ &lt;A NAME=&quot;fillCheckBoxActionPerformed(java.awt.event.ActionEvent)&quot;&gt;&lt;!-- --&gt;&lt;/A&gt;&lt;H3&gt;
++ fillCheckBoxActionPerformed&lt;/H3&gt;
++ &lt;PRE&gt;
++ private void &lt;B&gt;fillCheckBoxActionPerformed&lt;/B&gt;(java.awt.event.ActionEvent&nbsp;evt)&lt;/PRE&gt;
++ &lt;DL&gt;
+  &lt;DD&gt;&lt;DL&gt;
+  &lt;/DL&gt;
+
+Index: Main.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/Main.html,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** Main.html	15 May 2005 11:11:34 -0000	1.9
+--- Main.html	15 May 2005 11:56:27 -0000	1.10
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:51 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  Main
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:06 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  Main
+
+Index: SerializableImage.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/SerializableImage.html,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** SerializableImage.html	15 May 2005 11:11:34 -0000	1.9
+--- SerializableImage.html	15 May 2005 11:56:27 -0000	1.10
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:51 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  SerializableImage
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:06 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  SerializableImage
+
+Index: SocketConnection.CommunicationTask.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/SocketConnection.CommunicationTask.html,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** SocketConnection.CommunicationTask.html	15 May 2005 11:11:34 -0000	1.4
+--- SocketConnection.CommunicationTask.html	15 May 2005 11:56:27 -0000	1.5
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:52 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  SocketConnection.CommunicationTask
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:06 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  SocketConnection.CommunicationTask
+
+Index: SocketConnection.Exception.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/SocketConnection.Exception.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** SocketConnection.Exception.html	15 May 2005 11:11:34 -0000	1.2
+--- SocketConnection.Exception.html	15 May 2005 11:56:27 -0000	1.3
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:52 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  SocketConnection.Exception
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:06 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  SocketConnection.Exception
+
+Index: SocketConnection.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/SocketConnection.html,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -C2 -d -r1.5 -r1.6
+*** SocketConnection.html	15 May 2005 11:11:34 -0000	1.5
+--- SocketConnection.html	15 May 2005 11:56:27 -0000	1.6
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:51 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  SocketConnection
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:06 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  SocketConnection
+
+Index: package-frame.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/package-frame.html,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** package-frame.html	15 May 2005 11:11:34 -0000	1.9
+--- package-frame.html	15 May 2005 11:56:27 -0000	1.10
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:52 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  netboard
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:06 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  netboard
+
+Index: package-summary.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/package-summary.html,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** package-summary.html	15 May 2005 11:11:34 -0000	1.9
+--- package-summary.html	15 May 2005 11:56:27 -0000	1.10
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:52 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  netboard
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:07 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  netboard
+
+Index: package-tree.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/package-tree.html,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** package-tree.html	15 May 2005 11:11:34 -0000	1.9
+--- package-tree.html	15 May 2005 11:56:27 -0000	1.10
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:52 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  netboard Class Hierarchy
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:07 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  netboard Class Hierarchy
+
+Index: package-use.html
+===================================================================
+RCS file: /cvsroot/netboard/netboard/dist/javadoc/netboard/package-use.html,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** package-use.html	15 May 2005 11:11:34 -0000	1.9
+--- package-use.html	15 May 2005 11:56:27 -0000	1.10
+***************
+*** 3,7 ****
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:06:52 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  Uses of Package netboard
+--- 3,7 ----
+  &lt;HTML&gt;
+  &lt;HEAD&gt;
+! &lt;!-- Generated by javadoc (build 1.5.0_01) on Sun May 15 13:53:09 CEST 2005 --&gt;
+  &lt;TITLE&gt;
+  Uses of Package netboard
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000083.html">[netboard-cvs] netboard/dist/javadoc allclasses-frame.html,1.9,1.10 allclasses-noframe.html,1.9,1.10 constant-values.html,1.9,1.10 deprecated-list.html,1.9,1.10 help-doc.html,1.9,1.10 index-all.html,1.9,1.10 index.html,1.9,1.10 overview-tree.html,1.9,1.10 serialized-form.html,1.9,1.10
+</A></li>
+	<LI>Next message: <A HREF="000087.html">[netboard-cvs] netboard/dist netboard.jar,1.24,1.25
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

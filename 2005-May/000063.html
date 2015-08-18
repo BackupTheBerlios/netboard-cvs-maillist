@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard Main.java,1.7,1.8 SocketConnection.java,1.8,1.9
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-May/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20Main.java%2C1.7%2C1.8%20SocketConnection.java%2C1.8%2C1.9&In-Reply-To=%3C200505051733.j45HXgm01239%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000062.html">
+   <LINK REL="Next"  HREF="000064.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard Main.java,1.7,1.8 SocketConnection.java,1.8,1.9</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20Main.java%2C1.7%2C1.8%20SocketConnection.java%2C1.8%2C1.9&In-Reply-To=%3C200505051733.j45HXgm01239%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard Main.java,1.7,1.8 SocketConnection.java,1.8,1.9">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Thu May  5 19:33:42 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000062.html">[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.6,1.7 GUI.html,1.6,1.7 Main.html,1.6,1.7 SerializableImage.html,1.6,1.7 SocketConnection.CommunicationTask.html,1.1,1.2 SocketConnection.html,1.2,1.3 package-frame.html,1.6,1.7 package-summary.html,1.6,1.7 package-tree.html,1.6,1.7 package-use.html,1.6,1.7
+</A></li>
+        <LI>Next message: <A HREF="000064.html">[netboard-cvs] netboard/dist netboard.bat,NONE,1.1 netboard.sh,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv1320
+
+Modified Files:
+	Main.java SocketConnection.java 
+Log Message:
+some improvements in connection handling.
+
+Index: Main.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/Main.java,v
+retrieving revision 1.7
+retrieving revision 1.8
+diff -C2 -d -r1.7 -r1.8
+*** Main.java	2 May 2005 14:02:29 -0000	1.7
+--- Main.java	5 May 2005 17:33:08 -0000	1.8
+***************
+*** 171,175 ****
+          }
+  
+!         connection = new netboard.SocketConnection(destination, mode);
+      }
+      
+--- 171,180 ----
+          }
+  
+!         try {
+!             connection = new netboard.SocketConnection(destination, mode);
+!         } catch (netboard.SocketConnection.Exception e) {
+!             connection = null;
+!             netboard.SocketConnection.emergencyDisconnect(&quot;Error setting up the connection!&quot;);
+!         }
+      }
+      
+***************
+*** 240,244 ****
+      /**
+       * Object representing current connection
+!      * @see netboard.Main#getConnection()
+       * @see netboard.SocketConnection
+       */
+--- 245,250 ----
+      /**
+       * Object representing current connection
+!      * @see netboard.Main#connect
+!      * @see netboard.Main#disconnect
+       * @see netboard.SocketConnection
+       */
+
+Index: SocketConnection.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/SocketConnection.java,v
+retrieving revision 1.8
+retrieving revision 1.9
+diff -C2 -d -r1.8 -r1.9
+*** SocketConnection.java	5 May 2005 08:56:59 -0000	1.8
+--- SocketConnection.java	5 May 2005 17:33:08 -0000	1.9
+***************
+*** 28,31 ****
+--- 28,37 ----
+  public class SocketConnection {
+      /**
++      * Class to be thrown in the constructor when an object cannot be constructed
++      * @see netboard.SocketConnection#SocketConnection
++      */
++     public class Exception extends java.lang.Exception { }    
++     
++     /**
+       * Class representing the actions performed by the timer (i.e. reading data from the socket and writing to it)
+       * @see netboard.SocketConnection#communicationTask
+***************
+*** 36,59 ****
+              try {
+                  netboard.SerializableImage image;                
+  
+!                 out.writeInt(PACKET_IMG);                
+!                 image = new netboard.SerializableImage(Main.getGUI().getImage());
+!                 out.writeObject(image); 
+!                 image = null;
+!                 
+!                 int packetType = in.readInt();
+  
+!                 if (packetType == PACKET_IMG) {                    
+                      image = (netboard.SerializableImage)in.readUnshared();                
+                      Main.getGUI().setImage(image.getImage()); 
+                      image = null;                
+                  } else if (packetType == PACKET_END) {
+!                     disconnect();
+                  } else {
+                      throw new java.io.IOException(&quot;Unexpected stream content&quot;);
+                  }
+              } catch (java.io.IOException e) {
+! //                Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
+!                 disconnect();
+                  // FIXME: do something more sane...
+              } catch (java.lang.ClassNotFoundException e) {
+--- 42,75 ----
+              try {
+                  netboard.SerializableImage image;                
++                 int packetType = PACKET_GREET;
+  
+!                 if (firstPacket == true) {
+!                     out.writeInt(PACKET_GREET);
+!                     firstPacket = false;
+!                 } else {              
+!                     packetType = in.readInt();
+!                 }     
+  
+!                 if (packetType != PACKET_END) {
+!                     out.writeInt(PACKET_IMG);                
+!                     image = new netboard.SerializableImage(Main.getGUI().getImage());
+!                     out.writeObject(image); 
+!                     image = null;
+!                 }
+! 
+!                 if (packetType == PACKET_GREET) {
+!                 } else if (packetType == PACKET_IMG) {                    
+                      image = (netboard.SerializableImage)in.readUnshared();                
+                      Main.getGUI().setImage(image.getImage()); 
+                      image = null;                
+                  } else if (packetType == PACKET_END) {
+!                     receivedPacketEnd = true;
+!                     Main.disconnect();
+                  } else {
+                      throw new java.io.IOException(&quot;Unexpected stream content&quot;);
+                  }
+              } catch (java.io.IOException e) {
+!                 Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
+!                 Main.disconnect();
+                  // FIXME: do something more sane...
+              } catch (java.lang.ClassNotFoundException e) {
+***************
+*** 74,78 ****
+       * @param mode Mode of the connection: 0 - server, 1 - client
+       */
+!     public SocketConnection(String destination, int mode) {        
+          if (mode == Main.SERVER_MODE) {
+              Main.getGUI().setStatus(&quot;Working as a server: waiting for incoming connection...&quot;);
+--- 90,94 ----
+       * @param mode Mode of the connection: 0 - server, 1 - client
+       */
+!     public SocketConnection(String destination, int mode) throws netboard.SocketConnection.Exception {        
+          if (mode == Main.SERVER_MODE) {
+              Main.getGUI().setStatus(&quot;Working as a server: waiting for incoming connection...&quot;);
+***************
+*** 80,91 ****
+              try {
+                  serverSocket = new java.net.ServerSocket(Main.getPort());
+!                 socket = serverSocket.accept();
+!                 
+                  out = new java.io.ObjectOutputStream(socket.getOutputStream());
+                  in = new java.io.ObjectInputStream(socket.getInputStream());
+              } catch (java.io.IOException e) {
+                  Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
+                  // FIXME: do something more sane...
+!             }
+          } else if (mode == Main.CLIENT_MODE) {
+              Main.getGUI().setStatus(&quot;Working as a client: connecting to &quot; + destination + &quot;...&quot;);
+--- 96,108 ----
+              try {
+                  serverSocket = new java.net.ServerSocket(Main.getPort());
+!                 socket = serverSocket.accept();                                
+!                                
+                  out = new java.io.ObjectOutputStream(socket.getOutputStream());
+                  in = new java.io.ObjectInputStream(socket.getInputStream());
+              } catch (java.io.IOException e) {
+                  Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
++                 throw new netboard.SocketConnection.Exception();
+                  // FIXME: do something more sane...
+!             } 
+          } else if (mode == Main.CLIENT_MODE) {
+              Main.getGUI().setStatus(&quot;Working as a client: connecting to &quot; + destination + &quot;...&quot;);
+***************
+*** 96,99 ****
+--- 113,117 ----
+                  } catch (java.net.UnknownHostException e) {
+                      Main.getGUI().showError(&quot;Unknown host: &quot; + destination);
++                     throw new netboard.SocketConnection.Exception();                    
+                  }
+                  
+***************
+*** 102,105 ****
+--- 120,124 ----
+              } catch (java.io.IOException e) {
+                  Main.getGUI().showError(&quot;Error communicating with peer: &quot; +  e.getMessage());
++                 throw new netboard.SocketConnection.Exception();                
+                  // FIXME: do something more sane...
+              }  
+***************
+*** 112,122 ****
+          communicationTask = new CommunicationTask();
+          
+!         timer.schedule(communicationTask, communicationFreq, communicationFreq);
+      }
+-     
+  
+      /**
+       * Disconnects the network connection and makes sure that the application is ready for another connection
+!      * @see netboard.SocketConnection#SocketConnection()
+       * @see netboard.Main#connected
+       * @see netboard.Main#isConnected()
+--- 131,140 ----
+          communicationTask = new CommunicationTask();
+          
+!         timer.schedule(communicationTask, 0, communicationFreq);
+      }
+  
+      /**
+       * Disconnects the network connection and makes sure that the application is ready for another connection
+!      * @see netboard.SocketConnection#SocketConnection
+       * @see netboard.Main#connected
+       * @see netboard.Main#isConnected()
+***************
+*** 131,149 ****
+                  timer.cancel();
+                  
+!                 out.writeInt(PACKET_END);
+                              
+-                 in.close();
+-                 in = null;
+-                 out.close();
+-                 out = null;
+-                 
+                  socket.close();
+                  socket = null;
+!                 if (serverSocket != null) {
+!                     serverSocket.close();
+!                     serverSocket = null;
+!                 }
+              } catch (java.io.IOException e) {
+! //                Main.getGUI().showError(&quot;Error while disconnecting: &quot; +  e.getMessage());                
+                  // FIXME: do some error handling...
+              }
+--- 149,163 ----
+                  timer.cancel();
+                  
+!                 if (receivedPacketEnd == false) {
+!                     out.writeInt(PACKET_END);
+!                 }
+                              
+                  socket.close();
++                 out = null;
++                 in = null;                
+                  socket = null;
+!                 serverSocket = null;
+              } catch (java.io.IOException e) {
+!                 Main.getGUI().showError(&quot;Error while disconnecting: &quot; +  e.getMessage());                
+                  // FIXME: do some error handling...
+              }
+***************
+*** 152,155 ****
+--- 166,178 ----
+          }
+      }
++     
++     /**
++      * Sets everything like the connection was disconnected but does not touch the connection itself.
++      * Useful for emergency situations - e.g. when an instance of SocketConnection couldn't be created and no connection exists.
++      */
++     public static void emergencyDisconnect(String reason) {
++         Main.setConnected(false);            
++         Main.getGUI().setStatus(reason);                  
++     }
+          
+      // My variables declaration
+***************
+*** 180,184 ****
+       * Object representing the tasks which are performed by the timer
+       * @see netboard.SocketConnection.CommunicationTask
+!      * @see netboard.SocketConnecion#timer
+       */
+      private CommunicationTask communicationTask;
+--- 203,207 ----
+       * Object representing the tasks which are performed by the timer
+       * @see netboard.SocketConnection.CommunicationTask
+!      * @see netboard.SocketConnection#timer
+       */
+      private CommunicationTask communicationTask;
+***************
+*** 188,193 ****
+       */
+      private final int communicationFreq = 100;
+!     private final int PACKET_IMG = 0;
+!     private final int PACKET_END = 1;
+      // End of my variables declaration
+  }
+--- 211,226 ----
+       */
+      private final int communicationFreq = 100;
+!     /**
+!      * Indicates if an PACKET_END packet has been received
+!      */
+!     private boolean receivedPacketEnd = false;
+!     /**
+!      * Indicates if current packet will be the first one send in this connection
+!      */
+!     private boolean firstPacket = true;
+!     
+!     private final int PACKET_GREET = 0;
+!     private final int PACKET_IMG = 1;
+!     private final int PACKET_END = 2;
+      // End of my variables declaration
+  }
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000062.html">[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.6,1.7 GUI.html,1.6,1.7 Main.html,1.6,1.7 SerializableImage.html,1.6,1.7 SocketConnection.CommunicationTask.html,1.1,1.2 SocketConnection.html,1.2,1.3 package-frame.html,1.6,1.7 package-summary.html,1.6,1.7 package-tree.html,1.6,1.7 package-use.html,1.6,1.7
+</A></li>
+	<LI>Next message: <A HREF="000064.html">[netboard-cvs] netboard/dist netboard.bat,NONE,1.1 netboard.sh,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

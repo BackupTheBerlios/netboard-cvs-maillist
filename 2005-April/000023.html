@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard GUI.form,1.4,1.5 GUI.java,1.4,1.5
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-April/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20GUI.form%2C1.4%2C1.5%20GUI.java%2C1.4%2C1.5&In-Reply-To=%3C200504091805.j39I5Im05460%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000022.html">
+   <LINK REL="Next"  HREF="000024.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard GUI.form,1.4,1.5 GUI.java,1.4,1.5</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20GUI.form%2C1.4%2C1.5%20GUI.java%2C1.4%2C1.5&In-Reply-To=%3C200504091805.j39I5Im05460%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard GUI.form,1.4,1.5 GUI.java,1.4,1.5">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Apr  9 20:05:18 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000022.html">[netboard-cvs] netboard/dist netboard.jar,1.6,1.7
+</A></li>
+        <LI>Next message: <A HREF="000024.html">[netboard-cvs] netboard/dist netboard.jar,1.7,1.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv8436
+
+Modified Files:
+	GUI.form GUI.java 
+Log Message:
+fixed minor size-related bugs introduced in last commit.
+
+
+Index: GUI.form
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.form,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** GUI.form	9 Apr 2005 17:43:53 -0000	1.4
+--- GUI.form	9 Apr 2005 18:05:15 -0000	1.5
+***************
+*** 134,138 ****
+        &lt;Constraints&gt;
+          &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription&quot;&gt;
+!           &lt;GridBagConstraints gridX=&quot;0&quot; gridY=&quot;0&quot; gridWidth=&quot;1&quot; gridHeight=&quot;1&quot; fill=&quot;1&quot; ipadX=&quot;0&quot; ipadY=&quot;153&quot; insetsTop=&quot;0&quot; insetsLeft=&quot;0&quot; insetsBottom=&quot;0&quot; insetsRight=&quot;0&quot; anchor=&quot;10&quot; weightX=&quot;0.0&quot; weightY=&quot;0.0&quot;/&gt;
+          &lt;/Constraint&gt;
+        &lt;/Constraints&gt;
+--- 134,138 ----
+        &lt;Constraints&gt;
+          &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription&quot;&gt;
+!           &lt;GridBagConstraints gridX=&quot;0&quot; gridY=&quot;0&quot; gridWidth=&quot;1&quot; gridHeight=&quot;1&quot; fill=&quot;1&quot; ipadX=&quot;0&quot; ipadY=&quot;400&quot; insetsTop=&quot;0&quot; insetsLeft=&quot;0&quot; insetsBottom=&quot;0&quot; insetsRight=&quot;0&quot; anchor=&quot;10&quot; weightX=&quot;0.0&quot; weightY=&quot;0.0&quot;/&gt;
+          &lt;/Constraint&gt;
+        &lt;/Constraints&gt;
+
+Index: GUI.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.java,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** GUI.java	9 Apr 2005 17:43:53 -0000	1.4
+--- GUI.java	9 Apr 2005 18:05:15 -0000	1.5
+***************
+*** 157,161 ****
+          gridBagConstraints.gridy = 0;
+          gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+!         gridBagConstraints.ipady = 153;
+          getContentPane().add(toolsToolbar, gridBagConstraints);
+  
+--- 157,161 ----
+          gridBagConstraints.gridy = 0;
+          gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+!         gridBagConstraints.ipady = 400;
+          getContentPane().add(toolsToolbar, gridBagConstraints);
+  
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000022.html">[netboard-cvs] netboard/dist netboard.jar,1.6,1.7
+</A></li>
+	<LI>Next message: <A HREF="000024.html">[netboard-cvs] netboard/dist netboard.jar,1.7,1.8
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

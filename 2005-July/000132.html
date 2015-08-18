@@ -1,0 +1,587 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard DrawingPanel.java,1.13,1.14 GUI.java,1.18,1.19
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.13%2C1.14%20GUI.java%2C1.18%2C1.19&In-Reply-To=%3C200507041742.j64HgpI14391%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000131.html">
+   <LINK REL="Next"  HREF="000133.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard DrawingPanel.java,1.13,1.14 GUI.java,1.18,1.19</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.13%2C1.14%20GUI.java%2C1.18%2C1.19&In-Reply-To=%3C200507041742.j64HgpI14391%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard DrawingPanel.java,1.13,1.14 GUI.java,1.18,1.19">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Mon Jul  4 19:42:51 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000131.html">[netboard-cvs] netboard/dist netboard.jar,1.36,1.37
+</A></li>
+        <LI>Next message: <A HREF="000133.html">[netboard-cvs] netboard/dist netboard.jar,1.37,1.38
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv8082
+
+Modified Files:
+	DrawingPanel.java GUI.java 
+Log Message:
+changed setCurrentTool() to use ints instead of Strings.
++ minor code reformatting.
+
+
+Index: DrawingPanel.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.java,v
+retrieving revision 1.13
+retrieving revision 1.14
+diff -C2 -d -r1.13 -r1.14
+*** DrawingPanel.java	4 Jul 2005 16:59:52 -0000	1.13
+--- DrawingPanel.java	4 Jul 2005 17:42:47 -0000	1.14
+***************
+*** 70,78 ****
+      private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+          resetXorCoords();
+!         if (currentTool.equals(&quot;Line&quot;) &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0) {
+              currentColor = currentOutlineColor;
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);
+              
+!             if(evt.getButton() == java.awt.event.MouseEvent.BUTTON3 &amp;&amp; brokenLine==true ){
+                  lastX = evt.getX();
+                  lastY = evt.getY();
+--- 70,78 ----
+      private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+          resetXorCoords();
+!         if (currentTool == LINE_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0) {
+              currentColor = currentOutlineColor;
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);
+              
+!             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3 &amp;&amp; brokenLine==true) {
+                  lastX = evt.getX();
+                  lastY = evt.getY();
+***************
+*** 83,95 ****
+          int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+          
+!         if (currentTool.equals(&quot;Oval&quot;) &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0){
+!                 drawOval( x, y, Math.abs(lastX - evt.getX()), Math.abs(lastY - evt.getY()));
+          }
+!         if (currentTool.equals(&quot;Rectangle&quot;) &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0){
+!                 drawRect( x, y, Math.abs(lastX - evt.getX()), Math.abs(lastY - evt.getY()));
+          }
+          if(getCursor().getType()!=java.awt.Cursor.DEFAULT_CURSOR &amp;&amp; brokenLine==false){
+!                 java.awt.Cursor normalCursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
+!                 setCursor(normalCursor);
+          }
+          repaint();
+--- 83,95 ----
+          int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+          
+!         if (currentTool == OVAL_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0){
+!             drawOval( x, y, Math.abs(lastX - evt.getX()), Math.abs(lastY - evt.getY()));
+          }
+!         if (currentTool == RECT_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0){
+!             drawRect( x, y, Math.abs(lastX - evt.getX()), Math.abs(lastY - evt.getY()));
+          }
+          if(getCursor().getType()!=java.awt.Cursor.DEFAULT_CURSOR &amp;&amp; brokenLine==false){
+!             java.awt.Cursor normalCursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
+!             setCursor(normalCursor);
+          }
+          repaint();
+***************
+*** 100,106 ****
+      private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+          java.awt.Cursor moveCursor = new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR);
+!                 setCursor(moveCursor);
+!         if ((currentTool.equals(&quot;Line&quot;) || currentTool.equals(&quot;Oval&quot;) || currentTool.equals(&quot;Rectangle&quot;) )
+!                     &amp;&amp; evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+              if(brokenLine==false){
+                  lastX = evt.getX();
+--- 100,107 ----
+      private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+          java.awt.Cursor moveCursor = new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR);
+!         setCursor(moveCursor);
+!         
+!         if ((currentTool == LINE_TOOL || currentTool == OVAL_TOOL || currentTool == RECT_TOOL)
+!             &amp;&amp; evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+              if(brokenLine==false){
+                  lastX = evt.getX();
+***************
+*** 119,124 ****
+      private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+          Main.getGUI().setCoords(evt.getX(), evt.getY());
+!         if(currentTool.equals(&quot;Line&quot;) &amp;&amp; brokenLine==true){
+!             if(lastXorX != -1 &amp;&amp; lastXorY != -1){
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+              }
+--- 120,125 ----
+      private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+          Main.getGUI().setCoords(evt.getX(), evt.getY());
+!         if(currentTool == LINE_TOOL &amp;&amp; brokenLine==true) {
+!             if(lastXorX != -1 &amp;&amp; lastXorY != -1) {
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+              }
+***************
+*** 129,133 ****
+              lastXorY = evt.getY();            
+              repaint();
+!         }else if (!currentTool.equals(&quot;Line&quot;) &amp;&amp; brokenLine==true){
+              brokenLine=false;
+              drawXorLine(lastXorX, lastXorY, lastX, lastY);
+--- 130,134 ----
+              lastXorY = evt.getY();            
+              repaint();
+!         } else if (currentTool != LINE_TOOL &amp;&amp; brokenLine==true) {
+              brokenLine=false;
+              drawXorLine(lastXorX, lastXorY, lastX, lastY);
+***************
+*** 162,166 ****
+      private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+          
+!         if (currentTool.equals(&quot;Pen&quot;)) {
+              if (lastButton == 1) {
+                  currentColor=currentOutlineColor;
+--- 163,167 ----
+      private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+          
+!         if (currentTool == PEN_TOOL) {
+              if (lastButton == 1) {
+                  currentColor=currentOutlineColor;
+***************
+*** 172,176 ****
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);
+              resetCoords();
+!         } else if (currentTool.equals(&quot;Line&quot;) &amp;&amp; evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+              if (lastX &lt; 0 || lastY &lt; 0) {
+                  lastX = evt.getX();
+--- 173,177 ----
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);
+              resetCoords();
+!         } else if (currentTool == LINE_TOOL &amp;&amp; evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+              if (lastX &lt; 0 || lastY &lt; 0) {
+                  lastX = evt.getX();
+***************
+*** 180,186 ****
+                  setCursor(moveCursor);            
+              }
+!         } else if (currentTool.equals(&quot;Line&quot;) &amp;&amp; brokenLine == true) {
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);           
+!         }else if (currentTool.equals(&quot;Ereaser&quot;)) {
+              if (lastButton == 1) {
+                  currentColor = java.awt.Color.white;
+--- 181,187 ----
+                  setCursor(moveCursor);            
+              }
+!         } else if (currentTool == LINE_TOOL &amp;&amp; brokenLine == true) {
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);           
+!         }else if (currentTool == EREASER_TOOL) {
+              if (lastButton == 1) {
+                  currentColor = java.awt.Color.white;
+***************
+*** 196,200 ****
+          Main.getGUI().setCoords(evt.getX(), evt.getY());
+          
+!         if (currentTool.equals(&quot;Pen&quot;)) {
+              if (lastX &lt; 0 || lastY &lt; 0) {
+                  lastX = evt.getX();
+--- 197,201 ----
+          Main.getGUI().setCoords(evt.getX(), evt.getY());
+          
+!         if (currentTool == PEN_TOOL) {
+              if (lastX &lt; 0 || lastY &lt; 0) {
+                  lastX = evt.getX();
+***************
+*** 211,215 ****
+              lastY = evt.getY();
+              repaint();
+!         } else if (currentTool.equals(&quot;Ereaser&quot;)) {
+              if (lastX &lt; 0 || lastY &lt; 0) {
+                  lastX = evt.getX();
+--- 212,216 ----
+              lastY = evt.getY();
+              repaint();
+!         } else if (currentTool == EREASER_TOOL) {
+              if (lastX &lt; 0 || lastY &lt; 0) {
+                  lastX = evt.getX();
+***************
+*** 228,237 ****
+              lastY = evt.getY();
+              repaint();
+!         } else if (currentTool.equals(&quot;Rectangle&quot;)) {
+              int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+              int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+  
+!             if(lastXorX != -1 &amp;&amp; lastXorY != -1){
+!                 if(lastXorW != 0 &amp;&amp; lastXorH != 0){
+                      drawXorRect(lastXorX, lastXorY, lastXorW, lastXorH);
+                  }
+--- 229,238 ----
+              lastY = evt.getY();
+              repaint();
+!         } else if (currentTool == RECT_TOOL) {
+              int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+              int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+  
+!             if (lastXorX != -1 &amp;&amp; lastXorY != -1) {
+!                 if (lastXorW != 0 &amp;&amp; lastXorH != 0) {
+                      drawXorRect(lastXorX, lastXorY, lastXorW, lastXorH);
+                  }
+***************
+*** 245,249 ****
+              lastXorY = y;
+          
+!         } else if (currentTool.equals(&quot;Oval&quot;)) {
+              int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+              int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+--- 246,250 ----
+              lastXorY = y;
+          
+!         } else if (currentTool == OVAL_TOOL) {
+              int x = (evt.getX() - lastX &gt; 0) ? lastX : evt.getX();
+              int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+***************
+*** 262,267 ****
+              lastXorY = y;
+              
+!         } else if (currentTool.equals(&quot;Line&quot;) &amp;&amp; lastButton == 1) {
+!             if(lastXorX != -1 &amp;&amp; lastXorY != -1){
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+              }
+--- 263,268 ----
+              lastXorY = y;
+              
+!         } else if (currentTool == LINE_TOOL &amp;&amp; lastButton == 1) {
+!             if (lastXorX != -1 &amp;&amp; lastXorY != -1) {
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+              }
+***************
+*** 271,276 ****
+              lastXorX = evt.getX();
+              lastXorY = evt.getY();            
+!         } else if(currentTool.equals(&quot;Line&quot;) &amp;&amp; brokenLine==true){
+!             if(lastXorX != -1 &amp;&amp; lastXorY != -1){
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+              }
+--- 272,277 ----
+              lastXorX = evt.getX();
+              lastXorY = evt.getY();            
+!         } else if (currentTool == LINE_TOOL &amp;&amp; brokenLine==true) {
+!             if (lastXorX != -1 &amp;&amp; lastXorY != -1) {
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+              }
+***************
+*** 285,291 ****
+      
+       /**
+!      * Draws line.
+       */
+!     private void drawLine(int x, int y, int x1, int y1){
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setColor(currentColor);
+--- 286,292 ----
+      
+       /**
+!      * Draws a line.
+       */
+!     private void drawLine(int x, int y, int x1, int y1) {
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setColor(currentColor);
+***************
+*** 294,300 ****
+      
+      /**
+!      * Draws line in XOR mode.
+       */
+!     private void drawXorLine(int x, int y, int x1, int y1){
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setXORMode(new java.awt.Color(0xAAAAAA));
+--- 295,301 ----
+      
+      /**
+!      * Draws a line in XOR mode.
+       */
+!     private void drawXorLine(int x, int y, int x1, int y1) {
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setXORMode(new java.awt.Color(0xAAAAAA));
+***************
+*** 305,311 ****
+  
+      /**
+!      * Draws rectangle.
+       */
+!     private void drawRect(int x, int y, int w, int h){
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          if (fill == true) {
+--- 306,312 ----
+  
+      /**
+!      * Draws a rectangle.
+       */
+!     private void drawRect(int x, int y, int w, int h) {
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          if (fill == true) {
+***************
+*** 321,327 ****
+      
+      /**
+!      * Draws rectangle in XOR mode.
+       */
+!     private void drawXorRect(int x, int y, int w, int h){
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setXORMode(graphics.getBackground());
+--- 322,328 ----
+      
+      /**
+!      * Draws a rectangle in XOR mode.
+       */
+!     private void drawXorRect(int x, int y, int w, int h) {
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setXORMode(graphics.getBackground());
+***************
+*** 338,344 ****
+  
+      /**
+!      * Draws oval.
+       */
+!     private void drawOval(int x, int y, int w, int h){
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          if (fill == true) {
+--- 339,345 ----
+  
+      /**
+!      * Draws an oval.
+       */
+!     private void drawOval(int x, int y, int w, int h) {
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          if (fill == true) {
+***************
+*** 354,360 ****
+      
+      /**
+!      * Draws oval in XOR mode.
+       */
+!     private void drawXorOval(int x, int y, int w, int h){
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setXORMode(graphics.getBackground());
+--- 355,361 ----
+      
+      /**
+!      * Draws an oval in XOR mode.
+       */
+!     private void drawXorOval(int x, int y, int w, int h) {
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setXORMode(graphics.getBackground());
+***************
+*** 374,378 ****
+       * Erases.
+       */
+!     private void drawErase(int x, int y, int w, int h){
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setColor(currentColor);                
+--- 375,379 ----
+       * Erases.
+       */
+!     private void drawErase(int x, int y, int w, int h) {
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+          graphics.setColor(currentColor);                
+***************
+*** 385,389 ****
+       * @see netboard.DrawingPanel#currentTool
+       */
+!     public void setCurrentTool(String tool) {
+          currentTool = tool;
+      }
+--- 386,390 ----
+       * @see netboard.DrawingPanel#currentTool
+       */
+!     public void setCurrentTool(int tool) {
+          currentTool = tool;
+      }
+***************
+*** 518,524 ****
+      /**
+       * Current drawing tool
+!      * @see netboard.DrawingPanel#setCurrentTool(String)
+       */
+!     private String currentTool = &quot;Pen&quot;;
+      /**
+       * Current outline drawing color
+--- 519,525 ----
+      /**
+       * Current drawing tool
+!      * @see netboard.DrawingPanel#setCurrentTool(int)
+       */
+!     private int currentTool = 0;
+      /**
+       * Current outline drawing color
+***************
+*** 588,596 ****
+      private boolean outline = true;
+      /**
+!      * Tells if we are in mode of drawing broken line.
+       */    
+      private boolean brokenLine = false;
+      
+! 
+      // End of my variables declaration
+  }
+--- 589,601 ----
+      private boolean outline = true;
+      /**
+!      * Tells if we are in mode of drawing a broken line.
+       */    
+      private boolean brokenLine = false;
+      
+!     public static final int PEN_TOOL = 0;
+!     public static final int LINE_TOOL = 1;
+!     public static final int RECT_TOOL = 2;
+!     public static final int OVAL_TOOL = 3;
+!     public static final int EREASER_TOOL = 4;
+      // End of my variables declaration
+  }
+
+Index: GUI.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.java,v
+retrieving revision 1.18
+retrieving revision 1.19
+diff -C2 -d -r1.18 -r1.19
+*** GUI.java	4 Jul 2005 16:59:52 -0000	1.18
+--- GUI.java	4 Jul 2005 17:42:47 -0000	1.19
+***************
+*** 160,164 ****
+          outlineLabel.setText(&quot;Outline:&quot;);
+          colorChooserPanel.add(outlineLabel);
+!         outlineLabel.setBounds(0, 60, 70, 14);
+  
+          outlineColorChooserButton.setBackground(drawingPanel.getCurrentOutlineColor());
+--- 160,164 ----
+          outlineLabel.setText(&quot;Outline:&quot;);
+          colorChooserPanel.add(outlineLabel);
+!         outlineLabel.setBounds(0, 60, 70, 15);
+  
+          outlineColorChooserButton.setBackground(drawingPanel.getCurrentOutlineColor());
+***************
+*** 170,178 ****
+  
+          colorChooserPanel.add(outlineColorChooserButton);
+!         outlineColorChooserButton.setBounds(0, 80, 50, 9);
+  
+          fillLabel.setText(&quot;Fill:&quot;);
+          colorChooserPanel.add(fillLabel);
+!         fillLabel.setBounds(0, 100, 30, 14);
+  
+          fillColorChooserButton.setBackground(drawingPanel.getCurrentFillColor());
+--- 170,178 ----
+  
+          colorChooserPanel.add(outlineColorChooserButton);
+!         outlineColorChooserButton.setBounds(0, 80, 50, 10);
+  
+          fillLabel.setText(&quot;Fill:&quot;);
+          colorChooserPanel.add(fillLabel);
+!         fillLabel.setBounds(0, 100, 30, 15);
+  
+          fillColorChooserButton.setBackground(drawingPanel.getCurrentFillColor());
+***************
+*** 184,188 ****
+  
+          colorChooserPanel.add(fillColorChooserButton);
+!         fillColorChooserButton.setBounds(0, 120, 50, 9);
+  
+          fillCheckBox.setSelected(drawingPanel.getFill());
+--- 184,188 ----
+  
+          colorChooserPanel.add(fillColorChooserButton);
+!         fillColorChooserButton.setBounds(0, 120, 50, 10);
+  
+          fillCheckBox.setSelected(drawingPanel.getFill());
+***************
+*** 590,594 ****
+      
+      private void ereaserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ereaserButtonActionPerformed
+!         drawingPanel.setCurrentTool(&quot;Ereaser&quot;);
+      }//GEN-LAST:event_ereaserButtonActionPerformed
+      
+--- 590,594 ----
+      
+      private void ereaserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ereaserButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_ereaserButtonActionPerformed
+      
+***************
+*** 654,670 ****
+      
+      private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
+!         drawingPanel.setCurrentTool(&quot;Rectangle&quot;);
+      }//GEN-LAST:event_rectangleButtonActionPerformed
+      
+      private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
+!         drawingPanel.setCurrentTool(&quot;Oval&quot;);
+      }//GEN-LAST:event_ovalButtonActionPerformed
+      
+      private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
+!         drawingPanel.setCurrentTool(&quot;Line&quot;);
+      }//GEN-LAST:event_lineButtonActionPerformed
+      
+      private void penButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penButtonActionPerformed
+!         drawingPanel.setCurrentTool(&quot;Pen&quot;);
+      }//GEN-LAST:event_penButtonActionPerformed
+      
+--- 654,670 ----
+      
+      private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_rectangleButtonActionPerformed
+      
+      private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_ovalButtonActionPerformed
+      
+      private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_lineButtonActionPerformed
+      
+      private void penButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penButtonActionPerformed
+!         drawingPanel.setCurrentTool(netboard.DrawingPanel.EREASER_TOOL);
+      }//GEN-LAST:event_penButtonActionPerformed
+      
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000131.html">[netboard-cvs] netboard/dist netboard.jar,1.36,1.37
+</A></li>
+	<LI>Next message: <A HREF="000133.html">[netboard-cvs] netboard/dist netboard.jar,1.37,1.38
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

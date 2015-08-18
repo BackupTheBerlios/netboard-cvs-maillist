@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard Connection.java,1.2,1.3 Main.java,1.2,1.3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-April/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20Connection.java%2C1.2%2C1.3%20Main.java%2C1.2%2C1.3&In-Reply-To=%3C200504091739.j39HdNm05065%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000018.html">
+   <LINK REL="Next"  HREF="000020.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard Connection.java,1.2,1.3 Main.java,1.2,1.3</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20Connection.java%2C1.2%2C1.3%20Main.java%2C1.2%2C1.3&In-Reply-To=%3C200504091739.j39HdNm05065%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard Connection.java,1.2,1.3 Main.java,1.2,1.3">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Apr  9 19:39:23 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000018.html">[netboard-cvs] netboard/dist netboard.jar,1.4,1.5
+</A></li>
+        <LI>Next message: <A HREF="000020.html">[netboard-cvs] netboard/dist netboard.jar,1.5,1.6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#19">[ date ]</a>
+              <a href="thread.html#19">[ thread ]</a>
+              <a href="subject.html#19">[ subject ]</a>
+              <a href="author.html#19">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv7573
+
+Modified Files:
+	Connection.java Main.java 
+Log Message:
+the usual &quot;messing with Connection&quot; stuff.
+
+
+Index: Connection.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/Connection.java,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** Connection.java	9 Apr 2005 09:03:25 -0000	1.2
+--- Connection.java	9 Apr 2005 17:39:20 -0000	1.3
+***************
+*** 100,105 ****
+                      public void actionPerformed(java.awt.event.ActionEvent evt) {
+                          try {
+!                             out.writeObject(new netboard.SerializableImage(Main.getGUI().getImage())); // FIXME: not, fuckin', working ://
+!                             Main.getGUI().setImage(((netboard.SerializableImage)in.readObject()).getImage()); // FIXME: not, fuckin', working ://                                                        
+                          } catch (java.io.IOException e) {
+                              Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
+--- 100,112 ----
+                      public void actionPerformed(java.awt.event.ActionEvent evt) {
+                          try {
+!                             netboard.SerializableImage image;
+!                             
+!                             image = new netboard.SerializableImage(Main.getGUI().getImage());
+!                             out.writeObject(image); // FIXME: not, fuckin', working ://
+!                             image = null;
+!                             
+!                             image = (netboard.SerializableImage)in.readObject();
+!                             Main.getGUI().setImage(image.getImage()); // FIXME: not, fuckin', working ://                            
+!                             image = null;                            
+                          } catch (java.io.IOException e) {
+                              Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
+***************
+*** 109,113 ****
+                              // FIXME: do some error handling...
+                          }
+- //                        connectionWrote = true;
+                      }
+                  };
+--- 116,119 ----
+***************
+*** 120,137 ****
+                  } catch (InterruptedException e) { }
+                  
+- //                while (error == false) {
+- //                    connectionWrote = false;
+- //                    
+- //                    while (connectionWrote == false) {
+- //                        try {
+- //                            Main.getGUI().setImage(((netboard.SerializableImage)in.readObject()).getImage()); // FIXME: not, fuckin', working ://
+- //                        } catch (ClassNotFoundException e) {
+- //                            error = true;
+- //                            break;
+- //                            // FIXME: do some error handling...
+- //                        }
+- //                    }
+- //                }
+-                 
+                  in.close();
+                  out.close();
+--- 126,129 ----
+***************
+*** 163,168 ****
+                      public void actionPerformed(java.awt.event.ActionEvent evt) {
+                          try {
+!                             out.writeObject(new netboard.SerializableImage(Main.getGUI().getImage())); // FIXME: not, fuckin', working ://
+!                             Main.getGUI().setImage(((netboard.SerializableImage)in.readObject()).getImage()); // FIXME: not, fuckin', working ://                            
+                          } catch (java.io.IOException e) {
+                              Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
+--- 155,167 ----
+                      public void actionPerformed(java.awt.event.ActionEvent evt) {
+                          try {
+!                             netboard.SerializableImage image;
+!                             
+!                             image = new netboard.SerializableImage(Main.getGUI().getImage());
+!                             out.writeObject(image); // FIXME: not, fuckin', working ://
+!                             image = null;
+!                             
+!                             image = (netboard.SerializableImage)in.readObject();
+!                             Main.getGUI().setImage(image.getImage()); // FIXME: not, fuckin', working ://                            
+!                             image = null;
+                          } catch (java.io.IOException e) {
+                              Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
+***************
+*** 172,176 ****
+                              // FIXME: do some error handling...
+                          }
+- //                        connectionWrote = true;
+                      }
+                  };
+--- 171,174 ----
+***************
+*** 183,200 ****
+                  } catch (InterruptedException e) { }
+                      
+- //                while (error == false) {
+- //                    connectionWrote = false;
+- //                    
+- //                    while (connectionWrote == false) {
+- //                        try {
+- //                            Main.getGUI().setImage(((netboard.SerializableImage)in.readObject()).getImage()); // FIXME: not, fuckin', working ://
+- //                        } catch (ClassNotFoundException e) {
+- //                            error = true;
+- //                            break;
+- //                            // FIXME: do some error handling...
+- //                        }
+- //                    }
+- //                }
+-                 
+                  in.close();
+                  out.close();
+--- 181,184 ----
+***************
+*** 213,220 ****
+       */
+      private String destination = null;
+- //    /**
+- //     * This connection's write status - if it has written data to the socket since last check this is &lt;CODE&gt;true&lt;/CODE&gt; and &lt;CODE&gt;false&lt;/CODE&gt; otherwise
+- //     */
+- //    private boolean connectionWrote = false; // FIXME: This one _really_ doesn't belong here!
+      /**
+       * The connection's error status - if an error occured this is &lt;CODE&gt;true&lt;/CODE&gt; and &lt;CODE&gt;false&lt;/CODE&gt; otherwise
+--- 197,200 ----
+
+Index: Main.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/Main.java,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** Main.java	9 Apr 2005 09:17:40 -0000	1.2
+--- Main.java	9 Apr 2005 17:39:20 -0000	1.3
+***************
+*** 179,182 ****
+--- 179,186 ----
+                  setConnected(true);
+              }
++             
++             try {
++                 Thread.sleep(5000);
++             } catch (InterruptedException e) { }
+          }
+      }
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000018.html">[netboard-cvs] netboard/dist netboard.jar,1.4,1.5
+</A></li>
+	<LI>Next message: <A HREF="000020.html">[netboard-cvs] netboard/dist netboard.jar,1.5,1.6
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#19">[ date ]</a>
+              <a href="thread.html#19">[ thread ]</a>
+              <a href="subject.html#19">[ subject ]</a>
+              <a href="author.html#19">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

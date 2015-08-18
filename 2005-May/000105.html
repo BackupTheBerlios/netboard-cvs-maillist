@@ -1,0 +1,468 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard DrawingPanel.java,1.7,1.8 GUI.form,1.10,1.11 GUI.java,1.13,1.14
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-May/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.7%2C1.8%20GUI.form%2C1.10%2C1.11%20GUI.java%2C1.13%2C1.14&In-Reply-To=%3C200505191714.j4JHE8m09167%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000104.html">
+   <LINK REL="Next"  HREF="000106.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard DrawingPanel.java,1.7,1.8 GUI.form,1.10,1.11 GUI.java,1.13,1.14</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.7%2C1.8%20GUI.form%2C1.10%2C1.11%20GUI.java%2C1.13%2C1.14&In-Reply-To=%3C200505191714.j4JHE8m09167%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard DrawingPanel.java,1.7,1.8 GUI.form,1.10,1.11 GUI.java,1.13,1.14">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Thu May 19 19:14:08 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000104.html">[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.12,1.13 GUI.PNGFilter.html,1.5,1.6 GUI.html,1.12,1.13 Main.html,1.12,1.13 SerializableImage.html,1.12,1.13 SocketConnection.Exception.html,1.5,1.6 SocketConnection.ReadingTask.html,1.2,1.3 SocketConnection.WritingTask.html,1.2,1.3 SocketConnection.html,1.8,1.9 package-frame.html,1.12,1.13 package-summary.html,1.12,1.13 package-tree.html,1.12,1.13 package-use.html,1.12,1.13
+</A></li>
+        <LI>Next message: <A HREF="000106.html">[netboard-cvs] netboard/dist netboard.jar,1.28,1.29
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#105">[ date ]</a>
+              <a href="thread.html#105">[ thread ]</a>
+              <a href="subject.html#105">[ subject ]</a>
+              <a href="author.html#105">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv26303
+
+Modified Files:
+	DrawingPanel.java GUI.form GUI.java 
+Log Message:
+* added possibility to draw shapes without outline,
+* some fixes in the GUI,
+* javadoc + jar to the above.
+
+
+Index: DrawingPanel.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.java,v
+retrieving revision 1.7
+retrieving revision 1.8
+diff -C2 -d -r1.7 -r1.8
+*** DrawingPanel.java	15 May 2005 11:56:26 -0000	1.7
+--- DrawingPanel.java	19 May 2005 17:13:34 -0000	1.8
+***************
+*** 103,108 ****
+                  int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+              
+!                 graphics.setColor(currentOutlineColor);
+!                 graphics.drawOval(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
+                  
+                  if (fill == true) {
+--- 103,110 ----
+                  int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+              
+!                 if (outline == true) {
+!                     graphics.setColor(currentOutlineColor);
+!                     graphics.drawOval(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
+!                 }
+                  
+                  if (fill == true) {
+***************
+*** 122,127 ****
+                  int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+              
+!                 graphics.setColor(currentOutlineColor);
+!                 graphics.drawRect(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
+  
+                  if (fill == true) {                
+--- 124,131 ----
+                  int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+              
+!                 if (outline == true) {
+!                     graphics.setColor(currentOutlineColor);
+!                     graphics.drawRect(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));
+!                 }
+  
+                  if (fill == true) {                
+***************
+*** 265,268 ****
+--- 269,299 ----
+      }
+      
++     /**
++      * Returns the variable deciding if the shapes should be filled or not
++      * @return Tells if the shapes should be filled or not
++      * @see netboard.DrawingPanel#fill
++      */
++     public boolean getFill() {
++         return fill;
++     }    
++     
++     /**
++      * Sets the variable deciding if the shapes should be drawn with or without outline
++      * @param o Tells if the shapes should be drawn with or without outline
++      * @see netboard.DrawingPanel#outline
++      */
++     public void setOutline(boolean o) {
++         outline = o;
++     }    
++     
++     /**
++      * Returns the variable deciding if the shapes should be drawn with or without outline
++      * @return Tells if the shapes should be drawn with or without outline
++      * @see netboard.DrawingPanel#outline
++      */
++     public boolean getOutline() {
++         return outline;
++     }
++     
+      // Variables declaration - do not modify//GEN-BEGIN:variables
+      // End of variables declaration//GEN-END:variables
+***************
+*** 307,310 ****
+--- 338,346 ----
+       */
+      private boolean fill = true;
++     /**
++      * Tells if the shapes should be drawn with or without outline
++      * @see netboard.DrawingPanel#setOutline
++      */    
++     private boolean outline = true;    
+      // End of my variables declaration
+  }
+
+Index: GUI.form
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.form,v
+retrieving revision 1.10
+retrieving revision 1.11
+diff -C2 -d -r1.10 -r1.11
+*** GUI.form	15 May 2005 11:56:26 -0000	1.10
+--- GUI.form	19 May 2005 17:13:35 -0000	1.11
+***************
+*** 246,250 ****
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;0&quot; y=&quot;50&quot; width=&quot;70&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+--- 246,250 ----
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;0&quot; y=&quot;60&quot; width=&quot;70&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+***************
+*** 261,265 ****
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;10&quot; y=&quot;80&quot; width=&quot;50&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+--- 261,265 ----
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;0&quot; y=&quot;80&quot; width=&quot;50&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+***************
+*** 286,290 ****
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;10&quot; y=&quot;130&quot; width=&quot;50&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+--- 286,290 ----
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;0&quot; y=&quot;120&quot; width=&quot;50&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+***************
+*** 292,296 ****
+              &lt;Component class=&quot;javax.swing.JCheckBox&quot; name=&quot;fillCheckBox&quot;&gt;
+                &lt;Properties&gt;
+!                 &lt;Property name=&quot;selected&quot; type=&quot;boolean&quot; value=&quot;true&quot;/&gt;
+                &lt;/Properties&gt;
+                &lt;Events&gt;
+--- 292,298 ----
+              &lt;Component class=&quot;javax.swing.JCheckBox&quot; name=&quot;fillCheckBox&quot;&gt;
+                &lt;Properties&gt;
+!                 &lt;Property name=&quot;selected&quot; type=&quot;boolean&quot; editor=&quot;org.netbeans.modules.form.RADConnectionPropertyEditor&quot;&gt;
+!                   &lt;Connection code=&quot;drawingPanel.getFill()&quot; type=&quot;code&quot;/&gt;
+!                 &lt;/Property&gt;
+                &lt;/Properties&gt;
+                &lt;Events&gt;
+***************
+*** 299,303 ****
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;30&quot; y=&quot;100&quot; width=&quot;98&quot; height=&quot;23&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+--- 301,320 ----
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;50&quot; y=&quot;110&quot; width=&quot;98&quot; height=&quot;23&quot;/&gt;
+!                 &lt;/Constraint&gt;
+!               &lt;/Constraints&gt;
+!             &lt;/Component&gt;
+!             &lt;Component class=&quot;javax.swing.JCheckBox&quot; name=&quot;outlineCheckBox&quot;&gt;
+!               &lt;Properties&gt;
+!                 &lt;Property name=&quot;selected&quot; type=&quot;boolean&quot; editor=&quot;org.netbeans.modules.form.RADConnectionPropertyEditor&quot;&gt;
+!                   &lt;Connection code=&quot;drawingPanel.getOutline()&quot; type=&quot;code&quot;/&gt;
+!                 &lt;/Property&gt;
+!               &lt;/Properties&gt;
+!               &lt;Events&gt;
+!                 &lt;EventHandler event=&quot;actionPerformed&quot; listener=&quot;java.awt.event.ActionListener&quot; parameters=&quot;java.awt.event.ActionEvent&quot; handler=&quot;outlineCheckBoxActionPerformed&quot;/&gt;
+!               &lt;/Events&gt;
+!               &lt;Constraints&gt;
+!                 &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;50&quot; y=&quot;70&quot; width=&quot;98&quot; height=&quot;23&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+***************
+*** 332,340 ****
+          &lt;/Property&gt;
+          &lt;Property name=&quot;focusable&quot; type=&quot;boolean&quot; value=&quot;false&quot;/&gt;
+          &lt;Property name=&quot;minimumSize&quot; type=&quot;java.awt.Dimension&quot; editor=&quot;org.netbeans.beaninfo.editors.DimensionEditor&quot;&gt;
+!           &lt;Dimension value=&quot;[500, 500]&quot;/&gt;
+          &lt;/Property&gt;
+          &lt;Property name=&quot;preferredSize&quot; type=&quot;java.awt.Dimension&quot; editor=&quot;org.netbeans.beaninfo.editors.DimensionEditor&quot;&gt;
+!           &lt;Dimension value=&quot;[500, 500]&quot;/&gt;
+          &lt;/Property&gt;
+        &lt;/Properties&gt;
+--- 349,360 ----
+          &lt;/Property&gt;
+          &lt;Property name=&quot;focusable&quot; type=&quot;boolean&quot; value=&quot;false&quot;/&gt;
++         &lt;Property name=&quot;maximumSize&quot; type=&quot;java.awt.Dimension&quot; editor=&quot;org.netbeans.beaninfo.editors.DimensionEditor&quot;&gt;
++           &lt;Dimension value=&quot;[400, 400]&quot;/&gt;
++         &lt;/Property&gt;
+          &lt;Property name=&quot;minimumSize&quot; type=&quot;java.awt.Dimension&quot; editor=&quot;org.netbeans.beaninfo.editors.DimensionEditor&quot;&gt;
+!           &lt;Dimension value=&quot;[400, 400]&quot;/&gt;
+          &lt;/Property&gt;
+          &lt;Property name=&quot;preferredSize&quot; type=&quot;java.awt.Dimension&quot; editor=&quot;org.netbeans.beaninfo.editors.DimensionEditor&quot;&gt;
+!           &lt;Dimension value=&quot;[400, 400]&quot;/&gt;
+          &lt;/Property&gt;
+        &lt;/Properties&gt;
+***************
+*** 345,349 ****
+        &lt;/Constraints&gt;
+  
+!       &lt;Layout class=&quot;org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout&quot;/&gt;
+        &lt;SubComponents&gt;
+          &lt;Container class=&quot;netboard.DrawingPanel&quot; name=&quot;drawingPanel&quot;&gt;
+--- 365,372 ----
+        &lt;/Constraints&gt;
+  
+!       &lt;Layout class=&quot;org.netbeans.modules.form.compat2.layouts.DesignGridLayout&quot;&gt;
+!         &lt;Property name=&quot;columns&quot; type=&quot;int&quot; value=&quot;1&quot;/&gt;
+!         &lt;Property name=&quot;rows&quot; type=&quot;int&quot; value=&quot;1&quot;/&gt;
+!       &lt;/Layout&gt;
+        &lt;SubComponents&gt;
+          &lt;Container class=&quot;netboard.DrawingPanel&quot; name=&quot;drawingPanel&quot;&gt;
+***************
+*** 351,365 ****
+              &lt;Property name=&quot;focusable&quot; type=&quot;boolean&quot; value=&quot;false&quot;/&gt;
+              &lt;Property name=&quot;minimumSize&quot; type=&quot;java.awt.Dimension&quot; editor=&quot;org.netbeans.beaninfo.editors.DimensionEditor&quot;&gt;
+!               &lt;Dimension value=&quot;[500, 500]&quot;/&gt;
+              &lt;/Property&gt;
+              &lt;Property name=&quot;opaque&quot; type=&quot;boolean&quot; value=&quot;false&quot;/&gt;
+            &lt;/Properties&gt;
+-           &lt;Constraints&gt;
+-             &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription&quot;&gt;
+-               &lt;GridBagConstraints gridX=&quot;0&quot; gridY=&quot;0&quot; gridWidth=&quot;1&quot; gridHeight=&quot;1&quot; fill=&quot;1&quot; ipadX=&quot;0&quot; ipadY=&quot;0&quot; insetsTop=&quot;0&quot; insetsLeft=&quot;0&quot; insetsBottom=&quot;0&quot; insetsRight=&quot;0&quot; anchor=&quot;10&quot; weightX=&quot;1.0&quot; weightY=&quot;1.0&quot;/&gt;
+-             &lt;/Constraint&gt;
+-           &lt;/Constraints&gt;
+  
+!           &lt;Layout class=&quot;org.netbeans.modules.form.compat2.layouts.DesignBorderLayout&quot;/&gt;
+          &lt;/Container&gt;
+        &lt;/SubComponents&gt;
+--- 374,388 ----
+              &lt;Property name=&quot;focusable&quot; type=&quot;boolean&quot; value=&quot;false&quot;/&gt;
+              &lt;Property name=&quot;minimumSize&quot; type=&quot;java.awt.Dimension&quot; editor=&quot;org.netbeans.beaninfo.editors.DimensionEditor&quot;&gt;
+!               &lt;Dimension value=&quot;[400, 400]&quot;/&gt;
+              &lt;/Property&gt;
+              &lt;Property name=&quot;opaque&quot; type=&quot;boolean&quot; value=&quot;false&quot;/&gt;
++             &lt;Property name=&quot;preferredSize&quot; type=&quot;java.awt.Dimension&quot; editor=&quot;org.netbeans.beaninfo.editors.DimensionEditor&quot;&gt;
++               &lt;Dimension value=&quot;[400, 400]&quot;/&gt;
++             &lt;/Property&gt;
+            &lt;/Properties&gt;
+  
+!           &lt;Layout class=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot;&gt;
+!             &lt;Property name=&quot;useNullLayout&quot; type=&quot;boolean&quot; value=&quot;true&quot;/&gt;
+!           &lt;/Layout&gt;
+          &lt;/Container&gt;
+        &lt;/SubComponents&gt;
+
+Index: GUI.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.java,v
+retrieving revision 1.13
+retrieving revision 1.14
+diff -C2 -d -r1.13 -r1.14
+*** GUI.java	19 May 2005 15:22:53 -0000	1.13
+--- GUI.java	19 May 2005 17:13:35 -0000	1.14
+***************
+*** 64,67 ****
+--- 64,68 ----
+          fillColorChooserButton = new javax.swing.JButton();
+          fillCheckBox = new javax.swing.JCheckBox();
++         outlineCheckBox = new javax.swing.JCheckBox();
+          statusBar = new javax.swing.JLabel();
+          backgroundPanel = new javax.swing.JPanel();
+***************
+*** 157,161 ****
+          outlineLabel.setText(&quot;Outline:&quot;);
+          colorChooserPanel.add(outlineLabel);
+!         outlineLabel.setBounds(0, 50, 70, 15);
+  
+          outlineColorChooserButton.setBackground(drawingPanel.getCurrentOutlineColor());
+--- 158,162 ----
+          outlineLabel.setText(&quot;Outline:&quot;);
+          colorChooserPanel.add(outlineLabel);
+!         outlineLabel.setBounds(0, 60, 70, 15);
+  
+          outlineColorChooserButton.setBackground(drawingPanel.getCurrentOutlineColor());
+***************
+*** 167,171 ****
+  
+          colorChooserPanel.add(outlineColorChooserButton);
+!         outlineColorChooserButton.setBounds(10, 80, 50, 10);
+  
+          fillLabel.setText(&quot;Fill:&quot;);
+--- 168,172 ----
+  
+          colorChooserPanel.add(outlineColorChooserButton);
+!         outlineColorChooserButton.setBounds(0, 80, 50, 10);
+  
+          fillLabel.setText(&quot;Fill:&quot;);
+***************
+*** 181,187 ****
+  
+          colorChooserPanel.add(fillColorChooserButton);
+!         fillColorChooserButton.setBounds(10, 130, 50, 10);
+  
+!         fillCheckBox.setSelected(true);
+          fillCheckBox.addActionListener(new java.awt.event.ActionListener() {
+              public void actionPerformed(java.awt.event.ActionEvent evt) {
+--- 182,188 ----
+  
+          colorChooserPanel.add(fillColorChooserButton);
+!         fillColorChooserButton.setBounds(0, 120, 50, 10);
+  
+!         fillCheckBox.setSelected(drawingPanel.getFill());
+          fillCheckBox.addActionListener(new java.awt.event.ActionListener() {
+              public void actionPerformed(java.awt.event.ActionEvent evt) {
+***************
+*** 191,195 ****
+  
+          colorChooserPanel.add(fillCheckBox);
+!         fillCheckBox.setBounds(30, 100, 98, 23);
+  
+          toolsToolbar.add(colorChooserPanel);
+--- 192,206 ----
+  
+          colorChooserPanel.add(fillCheckBox);
+!         fillCheckBox.setBounds(50, 110, 98, 23);
+! 
+!         outlineCheckBox.setSelected(drawingPanel.getOutline());
+!         outlineCheckBox.addActionListener(new java.awt.event.ActionListener() {
+!             public void actionPerformed(java.awt.event.ActionEvent evt) {
+!                 outlineCheckBoxActionPerformed(evt);
+!             }
+!         });
+! 
+!         colorChooserPanel.add(outlineCheckBox);
+!         outlineCheckBox.setBounds(50, 70, 98, 23);
+  
+          toolsToolbar.add(colorChooserPanel);
+***************
+*** 215,236 ****
+          getContentPane().add(statusBar, gridBagConstraints);
+  
+!         backgroundPanel.setLayout(new java.awt.GridBagLayout());
+  
+          backgroundPanel.setBackground(java.awt.Color.white);
+          backgroundPanel.setFocusable(false);
+!         backgroundPanel.setMinimumSize(new java.awt.Dimension(500, 500));
+!         backgroundPanel.setPreferredSize(new java.awt.Dimension(500, 500));
+!         drawingPanel.setLayout(new java.awt.BorderLayout());
+! 
+          drawingPanel.setFocusable(false);
+!         drawingPanel.setMinimumSize(new java.awt.Dimension(500, 500));
+          drawingPanel.setOpaque(false);
+!         gridBagConstraints = new java.awt.GridBagConstraints();
+!         gridBagConstraints.gridx = 0;
+!         gridBagConstraints.gridy = 0;
+!         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+!         gridBagConstraints.weightx = 1.0;
+!         gridBagConstraints.weighty = 1.0;
+!         backgroundPanel.add(drawingPanel, gridBagConstraints);
+  
+          gridBagConstraints = new java.awt.GridBagConstraints();
+--- 226,241 ----
+          getContentPane().add(statusBar, gridBagConstraints);
+  
+!         backgroundPanel.setLayout(new java.awt.GridLayout(1, 1));
+  
+          backgroundPanel.setBackground(java.awt.Color.white);
+          backgroundPanel.setFocusable(false);
+!         backgroundPanel.setMaximumSize(new java.awt.Dimension(400, 400));
+!         backgroundPanel.setMinimumSize(new java.awt.Dimension(400, 400));
+!         backgroundPanel.setPreferredSize(new java.awt.Dimension(400, 400));
+          drawingPanel.setFocusable(false);
+!         drawingPanel.setMinimumSize(new java.awt.Dimension(400, 400));
+          drawingPanel.setOpaque(false);
+!         drawingPanel.setPreferredSize(new java.awt.Dimension(400, 400));
+!         backgroundPanel.add(drawingPanel);
+  
+          gridBagConstraints = new java.awt.GridBagConstraints();
+***************
+*** 391,394 ****
+--- 396,403 ----
+      // &lt;/editor-fold&gt;//GEN-END:initComponents
+  
++     private void outlineCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outlineCheckBoxActionPerformed
++         drawingPanel.setOutline(outlineCheckBox.isSelected());
++     }//GEN-LAST:event_outlineCheckBoxActionPerformed
++ 
+      private void fillCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillCheckBoxActionPerformed
+          drawingPanel.setFill(fillCheckBox.isSelected());
+***************
+*** 737,740 ****
+--- 746,750 ----
+      private javax.swing.JMenuItem loadMenuItem;
+      private javax.swing.JMenuBar mainMenu;
++     private javax.swing.JCheckBox outlineCheckBox;
+      private javax.swing.JButton outlineColorChooserButton;
+      private javax.swing.JLabel outlineLabel;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000104.html">[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.12,1.13 GUI.PNGFilter.html,1.5,1.6 GUI.html,1.12,1.13 Main.html,1.12,1.13 SerializableImage.html,1.12,1.13 SocketConnection.Exception.html,1.5,1.6 SocketConnection.ReadingTask.html,1.2,1.3 SocketConnection.WritingTask.html,1.2,1.3 SocketConnection.html,1.8,1.9 package-frame.html,1.12,1.13 package-summary.html,1.12,1.13 package-tree.html,1.12,1.13 package-use.html,1.12,1.13
+</A></li>
+	<LI>Next message: <A HREF="000106.html">[netboard-cvs] netboard/dist netboard.jar,1.28,1.29
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#105">[ date ]</a>
+              <a href="thread.html#105">[ thread ]</a>
+              <a href="subject.html#105">[ subject ]</a>
+              <a href="author.html#105">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

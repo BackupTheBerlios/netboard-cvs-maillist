@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard Main.java,1.1.1.1,1.2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-April/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20Main.java%2C1.1.1.1%2C1.2&In-Reply-To=%3C200504090917.j399Hgm22652%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000014.html">
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard Main.java,1.1.1.1,1.2</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20Main.java%2C1.1.1.1%2C1.2&In-Reply-To=%3C200504090917.j399Hgm22652%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard Main.java,1.1.1.1,1.2">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Apr  9 11:17:42 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000014.html">[netboard-cvs] netboard/dist/javadoc/netboard Connection.html,1.2,1.3 DrawingPanel.html,1.2,1.3 GUI.html,1.2,1.3 Main.html,1.2,1.3 SerializableImage.html,1.2,1.3 package-frame.html,1.2,1.3 package-summary.html,1.2,1.3 package-tree.html,1.2,1.3 package-use.html,1.2,1.3
+</A></li>
+        <LI>Next message: <A HREF="000016.html">[netboard-cvs] netboard COPYING,NONE,1.1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv18867
+
+Modified Files:
+	Main.java 
+Log Message:
+other minor modifications.
+
+
+Index: Main.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/Main.java,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** Main.java	4 Apr 2005 10:04:25 -0000	1.1.1.1
+--- Main.java	9 Apr 2005 09:17:40 -0000	1.2
+***************
+*** 50,53 ****
+--- 50,57 ----
+       */
+      static void close() {
++         if (isConnected()) {
++             connection.disconnect();
++         }
++         
+          System.exit(0);
+      }
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000014.html">[netboard-cvs] netboard/dist/javadoc/netboard Connection.html,1.2,1.3 DrawingPanel.html,1.2,1.3 GUI.html,1.2,1.3 Main.html,1.2,1.3 SerializableImage.html,1.2,1.3 package-frame.html,1.2,1.3 package-summary.html,1.2,1.3 package-tree.html,1.2,1.3 package-use.html,1.2,1.3
+</A></li>
+	<LI>Next message: <A HREF="000016.html">[netboard-cvs] netboard COPYING,NONE,1.1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

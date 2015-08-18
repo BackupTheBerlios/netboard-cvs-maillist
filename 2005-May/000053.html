@@ -1,0 +1,445 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard DrawingPanel.java,1.4,1.5 GUI.form,1.5,1.6 GUI.java,1.7,1.8 Main.java,1.6,1.7 SocketConnection.java,1.6,1.7
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-May/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.4%2C1.5%20GUI.form%2C1.5%2C1.6%20GUI.java%2C1.7%2C1.8%20Main.java%2C1.6%2C1.7%20SocketConnection.java%2C1.6%2C1.7&In-Reply-To=%3C200505021403.j42E33m16929%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000052.html">
+   <LINK REL="Next"  HREF="000054.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard DrawingPanel.java,1.4,1.5 GUI.form,1.5,1.6 GUI.java,1.7,1.8 Main.java,1.6,1.7 SocketConnection.java,1.6,1.7</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.4%2C1.5%20GUI.form%2C1.5%2C1.6%20GUI.java%2C1.7%2C1.8%20Main.java%2C1.6%2C1.7%20SocketConnection.java%2C1.6%2C1.7&In-Reply-To=%3C200505021403.j42E33m16929%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard DrawingPanel.java,1.4,1.5 GUI.form,1.5,1.6 GUI.java,1.7,1.8 Main.java,1.6,1.7 SocketConnection.java,1.6,1.7">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Mon May  2 16:03:03 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000052.html">[netboard-cvs] netboard/dist netboard.jar,1.16,1.17
+</A></li>
+        <LI>Next message: <A HREF="000054.html">[netboard-cvs] netboard/dist netboard.jar,1.18,1.19
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv12336
+
+Modified Files:
+	DrawingPanel.java GUI.form GUI.java Main.java 
+	SocketConnection.java 
+Log Message:
+added the functionality to load &amp; save images to/from the DrawingPanel.
+plus some other minor fixes.
+
+
+Index: DrawingPanel.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.java,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** DrawingPanel.java	10 Apr 2005 07:44:33 -0000	1.4
+--- DrawingPanel.java	2 May 2005 14:02:29 -0000	1.5
+***************
+*** 72,76 ****
+          drawing = new java.awt.image.BufferedImage(getWidth(), getHeight(), java.awt.image.BufferedImage.TYPE_INT_ARGB);
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+!         graphics.setBackground(new java.awt.Color(1.0f, 1.0f, 1.0f, 0.0f));
+          graphics.clearRect(0, 0, getWidth(), getHeight());
+          graphics.dispose();
+--- 72,76 ----
+          drawing = new java.awt.image.BufferedImage(getWidth(), getHeight(), java.awt.image.BufferedImage.TYPE_INT_ARGB);
+          java.awt.Graphics2D graphics = drawing.createGraphics();
+!         graphics.setBackground(new java.awt.Color(0.0f, 0.0f, 0.0f, 0.0f));
+          graphics.clearRect(0, 0, getWidth(), getHeight());
+          graphics.dispose();
+
+Index: GUI.form
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.form,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -C2 -d -r1.5 -r1.6
+*** GUI.form	9 Apr 2005 18:05:15 -0000	1.5
+--- GUI.form	2 May 2005 14:02:29 -0000	1.6
+***************
+*** 50,59 ****
+            &lt;/SubComponents&gt;
+          &lt;/Menu&gt;
+!         &lt;Menu class=&quot;javax.swing.JMenu&quot; name=&quot;editMenu&quot;&gt;
+            &lt;Properties&gt;
+!             &lt;Property name=&quot;mnemonic&quot; type=&quot;int&quot; value=&quot;69&quot;/&gt;
+!             &lt;Property name=&quot;text&quot; type=&quot;java.lang.String&quot; value=&quot;Edit&quot;/&gt;
+            &lt;/Properties&gt;
+            &lt;SubComponents&gt;
+              &lt;MenuItem class=&quot;javax.swing.JMenuItem&quot; name=&quot;clearMenuItem&quot;&gt;
+                &lt;Properties&gt;
+--- 50,79 ----
+            &lt;/SubComponents&gt;
+          &lt;/Menu&gt;
+!         &lt;Menu class=&quot;javax.swing.JMenu&quot; name=&quot;imageMenu&quot;&gt;
+            &lt;Properties&gt;
+!             &lt;Property name=&quot;mnemonic&quot; type=&quot;int&quot; value=&quot;73&quot;/&gt;
+!             &lt;Property name=&quot;text&quot; type=&quot;java.lang.String&quot; value=&quot;Image&quot;/&gt;
+            &lt;/Properties&gt;
+            &lt;SubComponents&gt;
++             &lt;MenuItem class=&quot;javax.swing.JMenuItem&quot; name=&quot;loadMenuItem&quot;&gt;
++               &lt;Properties&gt;
++                 &lt;Property name=&quot;mnemonic&quot; type=&quot;int&quot; value=&quot;76&quot;/&gt;
++                 &lt;Property name=&quot;text&quot; type=&quot;java.lang.String&quot; value=&quot;Load...&quot;/&gt;
++               &lt;/Properties&gt;
++               &lt;Events&gt;
++                 &lt;EventHandler event=&quot;actionPerformed&quot; listener=&quot;java.awt.event.ActionListener&quot; parameters=&quot;java.awt.event.ActionEvent&quot; handler=&quot;loadMenuItemActionPerformed&quot;/&gt;
++               &lt;/Events&gt;
++             &lt;/MenuItem&gt;
++             &lt;MenuItem class=&quot;javax.swing.JMenuItem&quot; name=&quot;saveMenuItem&quot;&gt;
++               &lt;Properties&gt;
++                 &lt;Property name=&quot;mnemonic&quot; type=&quot;int&quot; value=&quot;83&quot;/&gt;
++                 &lt;Property name=&quot;text&quot; type=&quot;java.lang.String&quot; value=&quot;Save...&quot;/&gt;
++               &lt;/Properties&gt;
++               &lt;Events&gt;
++                 &lt;EventHandler event=&quot;actionPerformed&quot; listener=&quot;java.awt.event.ActionListener&quot; parameters=&quot;java.awt.event.ActionEvent&quot; handler=&quot;saveMenuItemActionPerformed&quot;/&gt;
++               &lt;/Events&gt;
++             &lt;/MenuItem&gt;
++             &lt;MenuItem class=&quot;javax.swing.JSeparator&quot; name=&quot;imageSeparator&quot;&gt;
++             &lt;/MenuItem&gt;
+              &lt;MenuItem class=&quot;javax.swing.JMenuItem&quot; name=&quot;clearMenuItem&quot;&gt;
+                &lt;Properties&gt;
+
+Index: GUI.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.java,v
+retrieving revision 1.7
+retrieving revision 1.8
+diff -C2 -d -r1.7 -r1.8
+*** GUI.java	2 May 2005 09:48:35 -0000	1.7
+--- GUI.java	2 May 2005 14:02:29 -0000	1.8
+***************
+*** 27,30 ****
+--- 27,40 ----
+   */
+  public class GUI extends javax.swing.JFrame {
++ 
++     private class PNGFilter extends javax.swing.filechooser.FileFilter {
++         public boolean accept(java.io.File file) {
++             return file.getName().toLowerCase().endsWith(&quot;.png&quot;) || file.isDirectory();
++         }
++         
++         public String getDescription() {
++             return &quot;PNG image (*.png)&quot;;
++         }
++     }
+      
+      /** Creates new GUI form */
+***************
+*** 60,64 ****
+          applicationSeparator = new javax.swing.JSeparator();
+          exitMenuItem = new javax.swing.JMenuItem();
+!         editMenu = new javax.swing.JMenu();
+          clearMenuItem = new javax.swing.JMenuItem();
+          helpMenu = new javax.swing.JMenu();
+--- 70,77 ----
+          applicationSeparator = new javax.swing.JSeparator();
+          exitMenuItem = new javax.swing.JMenuItem();
+!         imageMenu = new javax.swing.JMenu();
+!         loadMenuItem = new javax.swing.JMenuItem();
+!         saveMenuItem = new javax.swing.JMenuItem();
+!         imageSeparator = new javax.swing.JSeparator();
+          clearMenuItem = new javax.swing.JMenuItem();
+          helpMenu = new javax.swing.JMenu();
+***************
+*** 249,254 ****
+          mainMenu.add(applicationMenu);
+  
+!         editMenu.setMnemonic('E');
+!         editMenu.setText(&quot;Edit&quot;);
+          clearMenuItem.setMnemonic('C');
+          clearMenuItem.setText(&quot;Clear&quot;);
+--- 262,289 ----
+          mainMenu.add(applicationMenu);
+  
+!         imageMenu.setMnemonic('I');
+!         imageMenu.setText(&quot;Image&quot;);
+!         loadMenuItem.setMnemonic('L');
+!         loadMenuItem.setText(&quot;Load...&quot;);
+!         loadMenuItem.addActionListener(new java.awt.event.ActionListener() {
+!             public void actionPerformed(java.awt.event.ActionEvent evt) {
+!                 loadMenuItemActionPerformed(evt);
+!             }
+!         });
+! 
+!         imageMenu.add(loadMenuItem);
+! 
+!         saveMenuItem.setMnemonic('S');
+!         saveMenuItem.setText(&quot;Save...&quot;);
+!         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+!             public void actionPerformed(java.awt.event.ActionEvent evt) {
+!                 saveMenuItemActionPerformed(evt);
+!             }
+!         });
+! 
+!         imageMenu.add(saveMenuItem);
+! 
+!         imageMenu.add(imageSeparator);
+! 
+          clearMenuItem.setMnemonic('C');
+          clearMenuItem.setText(&quot;Clear&quot;);
+***************
+*** 267,273 ****
+          });
+  
+!         editMenu.add(clearMenuItem);
+  
+!         mainMenu.add(editMenu);
+  
+          helpMenu.setMnemonic('H');
+--- 302,308 ----
+          });
+  
+!         imageMenu.add(clearMenuItem);
+  
+!         mainMenu.add(imageMenu);
+  
+          helpMenu.setMnemonic('H');
+***************
+*** 299,302 ****
+--- 334,402 ----
+      // &lt;/editor-fold&gt;//GEN-END:initComponents
+  
++     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
++         javax.swing.JFileChooser fileChooserDialog = new javax.swing.JFileChooser();
++         
++         fileChooserDialog.setFileFilter(new PNGFilter());
++         fileChooserDialog.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);
++         fileChooserDialog.setDialogTitle(&quot;Save the image to file&quot;);
++         int result = fileChooserDialog.showSaveDialog(this);
++        
++         if (result == javax.swing.JFileChooser.CANCEL_OPTION) {
++             return;
++         } else if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
++             java.io.File file = fileChooserDialog.getSelectedFile();
++             
++             if (file.getName().toLowerCase().endsWith(&quot;.png&quot;) != true) {
++                 file = new java.io.File(file.getAbsolutePath() + &quot;.png&quot;);
++             }
++             
++             if (file.exists()) {
++                 int response = javax.swing.JOptionPane.showConfirmDialog (null, 
++                         &quot;File &quot; + file.getName() + &quot; already exists. Overwrite?&quot;,&quot;Confirm Overwrite&quot;,
++                         javax.swing.JOptionPane.OK_CANCEL_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE);
++             
++                 if (response == javax.swing.JOptionPane.CANCEL_OPTION) { 
++                     return;    
++                 }
++             }
++         
++             try {
++                 java.awt.image.BufferedImage img = getImage();
++                 java.awt.image.BufferedImage image = new java.awt.image.BufferedImage(img.getWidth(), img.getHeight(), img.getType());
++                 java.awt.Graphics2D graphics = image.createGraphics();              
++                 
++                 graphics.setBackground(java.awt.Color.white);
++                 graphics.clearRect(0, 0, image.getWidth(), image.getHeight());                
++                 graphics.drawImage(img, 0, 0, null);
++                 graphics.dispose();
++                 
++                 javax.imageio.ImageIO.write(image, &quot;png&quot;, file);
++             } catch (java.io.IOException e) {
++                 showError(&quot;Error saving the image: &quot; + e.getMessage());
++             }
++         }        
++     }//GEN-LAST:event_saveMenuItemActionPerformed
++ 
++     private void loadMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadMenuItemActionPerformed
++         javax.swing.JFileChooser fileChooserDialog = new javax.swing.JFileChooser();
++ 
++         fileChooserDialog.setFileFilter(new PNGFilter());        
++         fileChooserDialog.setFileSelectionMode(javax.swing.JFileChooser.FILES_ONLY);        
++         fileChooserDialog.setDialogTitle(&quot;Open an image file&quot;);        
++         int result = fileChooserDialog.showOpenDialog(this);
++         
++         if (result == javax.swing.JFileChooser.CANCEL_OPTION) {
++             return;
++         } else if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
++             java.io.File file = fileChooserDialog.getSelectedFile();
++             
++             try {
++                 setImage(javax.imageio.ImageIO.read(file));
++             } catch (java.io.IOException e) {
++                 showError(&quot;Error loading the image: &quot; + e.getMessage());
++             }
++         }
++     }//GEN-LAST:event_loadMenuItemActionPerformed
++ 
+      private void clearMenuItemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearMenuItemMouseExited
+          restorePreviousStatus();
+***************
+*** 339,343 ****
+                  options, options[1]));
+          
+!         if (Main.getMode() == 1) {
+              Main.setDestination((String)javax.swing.JOptionPane.showInputDialog(this,
+                      &quot;Enter the server's address:&quot;, Main.getAppName() + &quot; - Open connection&quot;,
+--- 439,443 ----
+                  options, options[1]));
+          
+!         if (Main.getMode() == Main.CLIENT_MODE) {
+              Main.setDestination((String)javax.swing.JOptionPane.showInputDialog(this,
+                      &quot;Enter the server's address:&quot;, Main.getAppName() + &quot; - Open connection&quot;,
+***************
+*** 346,351 ****
+          
+          Main.connect();
+-         
+- //        Main.getConnection().interrupt();
+      }//GEN-LAST:event_connectMenuItemActionPerformed
+      
+--- 446,449 ----
+***************
+*** 501,512 ****
+      private javax.swing.JMenuItem disconnectMenuItem;
+      private netboard.DrawingPanel drawingPanel;
+-     private javax.swing.JMenu editMenu;
+      private javax.swing.JButton ereaserButton;
+      private javax.swing.JMenuItem exitMenuItem;
+      private javax.swing.JMenu helpMenu;
+      private javax.swing.JButton lineButton;
+      private javax.swing.JMenuBar mainMenu;
+      private javax.swing.JButton penButton;
+      private javax.swing.JButton rectangleButton;
+      private javax.swing.JLabel statusBar;
+      private javax.swing.JToolBar toolsToolbar;
+--- 599,613 ----
+      private javax.swing.JMenuItem disconnectMenuItem;
+      private netboard.DrawingPanel drawingPanel;
+      private javax.swing.JButton ereaserButton;
+      private javax.swing.JMenuItem exitMenuItem;
+      private javax.swing.JMenu helpMenu;
++     private javax.swing.JMenu imageMenu;
++     private javax.swing.JSeparator imageSeparator;
+      private javax.swing.JButton lineButton;
++     private javax.swing.JMenuItem loadMenuItem;
+      private javax.swing.JMenuBar mainMenu;
+      private javax.swing.JButton penButton;
+      private javax.swing.JButton rectangleButton;
++     private javax.swing.JMenuItem saveMenuItem;
+      private javax.swing.JLabel statusBar;
+      private javax.swing.JToolBar toolsToolbar;
+
+Index: Main.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/Main.java,v
+retrieving revision 1.6
+retrieving revision 1.7
+diff -C2 -d -r1.6 -r1.7
+*** Main.java	2 May 2005 09:48:35 -0000	1.6
+--- Main.java	2 May 2005 14:02:29 -0000	1.7
+***************
+*** 236,239 ****
+--- 236,241 ----
+       */
+      private static int mode;
++     public static final int SERVER_MODE = 0;
++     public static final int CLIENT_MODE = 1;    
+      /**
+       * Object representing current connection
+
+Index: SocketConnection.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/SocketConnection.java,v
+retrieving revision 1.6
+retrieving revision 1.7
+diff -C2 -d -r1.6 -r1.7
+*** SocketConnection.java	2 May 2005 11:29:47 -0000	1.6
+--- SocketConnection.java	2 May 2005 14:02:29 -0000	1.7
+***************
+*** 51,55 ****
+                      disconnect();
+                  } else {
+!                     throw new java.io.IOException(&quot;unexpected stream content&quot;);
+                  }
+              } catch (java.io.IOException e) {
+--- 51,55 ----
+                      disconnect();
+                  } else {
+!                     throw new java.io.IOException(&quot;Unexpected stream content&quot;);
+                  }
+              } catch (java.io.IOException e) {
+***************
+*** 75,79 ****
+       */
+      public SocketConnection(String destination, int mode) {        
+!         if (mode == 0) {
+              Main.getGUI().setStatus(&quot;Working as a server: waiting for incoming connection...&quot;);
+              
+--- 75,79 ----
+       */
+      public SocketConnection(String destination, int mode) {        
+!         if (mode == Main.SERVER_MODE) {
+              Main.getGUI().setStatus(&quot;Working as a server: waiting for incoming connection...&quot;);
+              
+***************
+*** 88,92 ****
+                  // FIXME: do something more sane...
+              }
+!         } else if (mode == 1) {
+              Main.getGUI().setStatus(&quot;Working as a client: connecting to &quot; + destination + &quot;...&quot;);
+              
+--- 88,92 ----
+                  // FIXME: do something more sane...
+              }
+!         } else if (mode == Main.CLIENT_MODE) {
+              Main.getGUI().setStatus(&quot;Working as a client: connecting to &quot; + destination + &quot;...&quot;);
+              
+***************
+*** 186,190 ****
+       * @see netboard.SocketConnection#timer
+       */
+!     private final int communicationFreq = 750;
+      private final int PACKET_IMG = 0;
+      private final int PACKET_END = 1;
+--- 186,190 ----
+       * @see netboard.SocketConnection#timer
+       */
+!     private final int communicationFreq = 500;
+      private final int PACKET_IMG = 0;
+      private final int PACKET_END = 1;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000052.html">[netboard-cvs] netboard/dist netboard.jar,1.16,1.17
+</A></li>
+	<LI>Next message: <A HREF="000054.html">[netboard-cvs] netboard/dist netboard.jar,1.18,1.19
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

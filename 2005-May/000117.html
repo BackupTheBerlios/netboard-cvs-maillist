@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard DrawingPanel.java,1.9,1.10 SocketConnection.java,1.15,1.16
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-May/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.9%2C1.10%20SocketConnection.java%2C1.15%2C1.16&In-Reply-To=%3C200505271320.j4RDK6m12652%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000116.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard DrawingPanel.java,1.9,1.10 SocketConnection.java,1.15,1.16</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.9%2C1.10%20SocketConnection.java%2C1.15%2C1.16&In-Reply-To=%3C200505271320.j4RDK6m12652%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard DrawingPanel.java,1.9,1.10 SocketConnection.java,1.15,1.16">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Fri May 27 15:20:06 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000116.html">[netboard-cvs] netboard/dist/javadoc allclasses-frame.html,1.14,1.15 allclasses-noframe.html,1.14,1.15 constant-values.html,1.14,1.15 deprecated-list.html,1.14,1.15 help-doc.html,1.14,1.15 index-all.html,1.14,1.15 index.html,1.14,1.15 overview-tree.html,1.14,1.15 serialized-form.html,1.14,1.15
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv30022
+
+Modified Files:
+	DrawingPanel.java SocketConnection.java 
+Log Message:
+some minor changes + sync.
+now it's time for testing before next release (planned for Sunday,
+29.05).
+
+
+Index: DrawingPanel.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.java,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** DrawingPanel.java	21 May 2005 14:41:27 -0000	1.9
+--- DrawingPanel.java	27 May 2005 13:19:33 -0000	1.10
+***************
+*** 294,297 ****
+--- 294,301 ----
+      }
+      
++     /**
++      * Clears the current image (i.e. makes it completely empty)
++      * @see netboard.DrawingPanel#image
++      */
+      public void clearImage() {
+          drawing = null;
+***************
+*** 380,383 ****
+--- 384,388 ----
+       * Tells if the shapes should be filled or not
+       * @see netboard.DrawingPanel#setFill
++      * @see netboard.DrawingPanel#getFill
+       */
+      private boolean fill = true;
+***************
+*** 385,388 ****
+--- 390,394 ----
+       * Tells if the shapes should be drawn with or without outline
+       * @see netboard.DrawingPanel#setOutline
++      * @see netbonetboard.DrawingPanel#getOutline
+       */    
+      private boolean outline = true;    
+
+Index: SocketConnection.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/SocketConnection.java,v
+retrieving revision 1.15
+retrieving revision 1.16
+diff -C2 -d -r1.15 -r1.16
+*** SocketConnection.java	19 May 2005 15:52:49 -0000	1.15
+--- SocketConnection.java	27 May 2005 13:19:33 -0000	1.16
+***************
+*** 234,239 ****
+          Main.getGUI().setStatus(&quot;Connected to &quot; + writingSocket.getInetAddress().getHostName());           
+  
+!         writingTimer = new java.util.Timer(&quot;WritingThread&quot;, false);
+!         readingTimer = new java.util.Timer(&quot;ReadingThread&quot;, false);        
+          
+          writingTimer.schedule(new WritingTask(), 0, communicationFreq);
+--- 234,239 ----
+          Main.getGUI().setStatus(&quot;Connected to &quot; + writingSocket.getInetAddress().getHostName());           
+  
+!         writingTimer = new java.util.Timer(&quot;WritingThread&quot;, true);
+!         readingTimer = new java.util.Timer(&quot;ReadingThread&quot;, true);        
+          
+          writingTimer.schedule(new WritingTask(), 0, communicationFreq);
+***************
+*** 315,319 ****
+       * Timeout to be set for the network connection
+       */
+!     private final int timeout = 10000;
+      /**
+       * Indicates if a PACKET_END packet has been received
+--- 315,319 ----
+       * Timeout to be set for the network connection
+       */
+!     private final int timeout = 50000;
+      /**
+       * Indicates if a PACKET_END packet has been received
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000116.html">[netboard-cvs] netboard/dist/javadoc allclasses-frame.html,1.14,1.15 allclasses-noframe.html,1.14,1.15 constant-values.html,1.14,1.15 deprecated-list.html,1.14,1.15 help-doc.html,1.14,1.15 index-all.html,1.14,1.15 index.html,1.14,1.15 overview-tree.html,1.14,1.15 serialized-form.html,1.14,1.15
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

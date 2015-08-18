@@ -1,0 +1,423 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard DrawingPanel.java,1.6,1.7 GUI.form,1.9,1.10 GUI.java,1.11,1.12 SocketConnection.java,1.13,1.14
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-May/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.6%2C1.7%20GUI.form%2C1.9%2C1.10%20GUI.java%2C1.11%2C1.12%20SocketConnection.java%2C1.13%2C1.14&In-Reply-To=%3C200505151156.j4FBuSm02768%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000082.html">
+   <LINK REL="Next"  HREF="000083.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard DrawingPanel.java,1.6,1.7 GUI.form,1.9,1.10 GUI.java,1.11,1.12 SocketConnection.java,1.13,1.14</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.6%2C1.7%20GUI.form%2C1.9%2C1.10%20GUI.java%2C1.11%2C1.12%20SocketConnection.java%2C1.13%2C1.14&In-Reply-To=%3C200505151156.j4FBuSm02768%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard DrawingPanel.java,1.6,1.7 GUI.form,1.9,1.10 GUI.java,1.11,1.12 SocketConnection.java,1.13,1.14">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sun May 15 13:56:28 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000082.html">[netboard-cvs] netboard DrawingPanel.java,1.5,1.6 GUI.form,1.8,1.9 GUI.java,1.10,1.11 Main.java,1.9,1.10 SerializableImage.java,1.3,1.4 SocketConnection.java,1.12,1.13
+</A></li>
+        <LI>Next message: <A HREF="000083.html">[netboard-cvs] netboard/dist/javadoc allclasses-frame.html,1.9,1.10 allclasses-noframe.html,1.9,1.10 constant-values.html,1.9,1.10 deprecated-list.html,1.9,1.10 help-doc.html,1.9,1.10 index-all.html,1.9,1.10 index.html,1.9,1.10 overview-tree.html,1.9,1.10 serialized-form.html,1.9,1.10
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv12811
+
+Modified Files:
+	DrawingPanel.java GUI.form GUI.java SocketConnection.java 
+Log Message:
+* some more improvents regarding the filling in DrawingPanel.
+* changed the default communicationFreq in SocketConnection.
+* javadoc + jar updated to meet all changes.
+
+
+Index: DrawingPanel.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.java,v
+retrieving revision 1.6
+retrieving revision 1.7
+diff -C2 -d -r1.6 -r1.7
+*** DrawingPanel.java	15 May 2005 11:11:11 -0000	1.6
+--- DrawingPanel.java	15 May 2005 11:56:26 -0000	1.7
+***************
+*** 105,110 ****
+                  graphics.setColor(currentOutlineColor);
+                  graphics.drawOval(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
+!                 graphics.setColor(currentFillColor);                
+!                 graphics.fillOval(x + 1, y + 1, Math.abs(evt.getX() - lastX) - 2, Math.abs(evt.getY() - lastY) - 2);
+                  resetCoords();
+              }
+--- 105,114 ----
+                  graphics.setColor(currentOutlineColor);
+                  graphics.drawOval(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
+!                 
+!                 if (fill == true) {
+!                     graphics.setColor(currentFillColor);                
+!                     graphics.fillOval(x + 1, y + 1, Math.abs(evt.getX() - lastX) - 2, Math.abs(evt.getY() - lastY) - 2);
+!                 }
+!                 
+                  resetCoords();
+              }
+***************
+*** 120,125 ****
+                  graphics.setColor(currentOutlineColor);
+                  graphics.drawRect(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
+!                 graphics.setColor(currentFillColor);                
+!                 graphics.fillRect(x + 1, y + 1, Math.abs(evt.getX() - lastX) - 1, Math.abs(evt.getY() - lastY) - 1);
+                  resetCoords();
+              }
+--- 124,133 ----
+                  graphics.setColor(currentOutlineColor);
+                  graphics.drawRect(x, y, Math.abs(evt.getX() - lastX), Math.abs(evt.getY() - lastY));                
+! 
+!                 if (fill == true) {                
+!                     graphics.setColor(currentFillColor);                
+!                     graphics.fillRect(x + 1, y + 1, Math.abs(evt.getX() - lastX) - 1, Math.abs(evt.getY() - lastY) - 1);
+!                 }
+!                 
+                  resetCoords();
+              }
+***************
+*** 167,170 ****
+--- 175,179 ----
+       * Sets the current tool used to draw on the panel
+       * @param tool Tool to set the drawing tool to
++      * @see netboard.DrawingPanel#currentTool
+       */
+      public void setCurrentTool(String tool) {
+***************
+*** 176,179 ****
+--- 185,189 ----
+       * Returns the current color used to draw the outline of the shapes drawn on the panel
+       * @return Current outline drawing color
++      * @see netboard.DrawingPanel#currentOutlineColor
+       */
+      public java.awt.Color getCurrentOutlineColor() {
+***************
+*** 184,187 ****
+--- 194,198 ----
+       * Returns the current color used to fill the shapes drawn on the panel
+       * @return Current filling color
++      * @see netboard.DrawingPanel#currentOutlineColor
+       */
+      public java.awt.Color getCurrentFillColor() {
+***************
+*** 191,195 ****
+      /**
+       * Sets the current color used to draw the outline of the shapes drawn on the panel
+!      * @param color Color to set the current drawing color to
+       */
+      public void setCurrentOutlineColor(java.awt.Color color) {
+--- 202,207 ----
+      /**
+       * Sets the current color used to draw the outline of the shapes drawn on the panel
+!      * @param color Color to set the current outline drawing color to
+!      * @see netboard.DrawingPanel#currentOutlineColor
+       */
+      public void setCurrentOutlineColor(java.awt.Color color) {
+***************
+*** 200,204 ****
+      /**
+       * Sets the current color used to fill the shapes drawn on the panel
+!      * @param color Color to set the current drawing color to
+       */
+      public void setCurrentFillColor(java.awt.Color color) {
+--- 212,217 ----
+      /**
+       * Sets the current color used to fill the shapes drawn on the panel
+!      * @param color Color to set the current filling color to
+!      * @see netboard.DrawingPanel#currentFillColor
+       */
+      public void setCurrentFillColor(java.awt.Color color) {
+***************
+*** 209,212 ****
+--- 222,227 ----
+      /**
+       * Resets the saved coordinates (&lt;CODE&gt;lastX&lt;/CODE&gt; and &lt;CODE&gt;lastY&lt;/CODE&gt;) to &lt;CODE&gt;-1&lt;/CODE&gt; (i.e. invalidates them)
++      * @see netboard.DrawingPanel#lastX
++      * @see netboard.DrawingPanel#lastY
+       */
+      public void resetCoords() {
+***************
+*** 217,220 ****
+--- 232,236 ----
+       * Returns the image from the panel
+       * @return Image from the panel
++      * @see netboard.DrawingPanel#drawing
+       */
+      public java.awt.image.BufferedImage getImage() {
+***************
+*** 225,228 ****
+--- 241,245 ----
+       * Sets the image on the panel
+       * @param image New image to be shown on the panel
++      * @see netboard.DrawingPanel#drawing
+       */
+      public void setImage(java.awt.image.BufferedImage image) {
+***************
+*** 239,242 ****
+--- 256,268 ----
+      }
+      
++     /**
++      * Sets the variable deciding if the shapes should be filled or not
++      * @param f Tells if the shapes should be filled or not
++      * @see netboard.DrawingPanel#fill
++      */
++     public void setFill(boolean f) {
++         fill = f;
++     }
++     
+      // Variables declaration - do not modify//GEN-BEGIN:variables
+      // End of variables declaration//GEN-END:variables
+***************
+*** 245,270 ****
+--- 271,310 ----
+      /**
+       * Current drawing tool
++      * @see netboard.DrawingPanel#setCurrentTool(String)
+       */
+      private String currentTool = &quot;Pen&quot;;
+      /**
+       * Current outline drawing color
++      * @see netboard.DrawingPanel#setCurrentOutlineColor
++      * @see netboard.DrawingPanel#getCurrentOutlineColor
+       */
+      private java.awt.Color currentOutlineColor = java.awt.Color.black;
+      /**
+       * Current filling color
++      * @see netboard.DrawingPanel#setCurrentFillColor
++      * @see netboard.DrawingPanel#getCurrentFillColor
+       */    
+      private java.awt.Color currentFillColor = java.awt.Color.white;    
+      /**
+       * Current drawing
++      * @see netboard.DrawingPanel#setImage
++      * @see netboard.DrawingPanel#getImage
+       */
+      private java.awt.image.BufferedImage drawing = null;
+      /**
+       * Last used X coordinate; valid if greater than &lt;CODE&gt;0&lt;/CODE&gt;
++      * @see netboard.DrawingPanel#resetCoords
+       */
+      private int lastX = -1;
+      /**
+       * Last used Y coordinate; valid if greater than &lt;CODE&gt;0&lt;/CODE&gt;
++      * @see netboard.DrawingPanel#resetCoords
+       */
+      private int lastY = -1;
++     /**
++      * Tells if the shapes should be filled or not
++      * @see netboard.DrawingPanel#setFill
++      */
++     private boolean fill = true;
+      // End of my variables declaration
+  }
+
+Index: GUI.form
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.form,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** GUI.form	15 May 2005 11:11:11 -0000	1.9
+--- GUI.form	15 May 2005 11:56:26 -0000	1.10
+***************
+*** 246,250 ****
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;0&quot; y=&quot;60&quot; width=&quot;70&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+--- 246,250 ----
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;0&quot; y=&quot;50&quot; width=&quot;70&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+***************
+*** 271,275 ****
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;0&quot; y=&quot;100&quot; width=&quot;70&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+--- 271,275 ----
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;0&quot; y=&quot;100&quot; width=&quot;30&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+***************
+*** 286,290 ****
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;10&quot; y=&quot;120&quot; width=&quot;50&quot; height=&quot;-1&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+--- 286,303 ----
+                &lt;Constraints&gt;
+                  &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;10&quot; y=&quot;130&quot; width=&quot;50&quot; height=&quot;-1&quot;/&gt;
+!                 &lt;/Constraint&gt;
+!               &lt;/Constraints&gt;
+!             &lt;/Component&gt;
+!             &lt;Component class=&quot;javax.swing.JCheckBox&quot; name=&quot;fillCheckBox&quot;&gt;
+!               &lt;Properties&gt;
+!                 &lt;Property name=&quot;selected&quot; type=&quot;boolean&quot; value=&quot;true&quot;/&gt;
+!               &lt;/Properties&gt;
+!               &lt;Events&gt;
+!                 &lt;EventHandler event=&quot;actionPerformed&quot; listener=&quot;java.awt.event.ActionListener&quot; parameters=&quot;java.awt.event.ActionEvent&quot; handler=&quot;fillCheckBoxActionPerformed&quot;/&gt;
+!               &lt;/Events&gt;
+!               &lt;Constraints&gt;
+!                 &lt;Constraint layoutClass=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout&quot; value=&quot;org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription&quot;&gt;
+!                   &lt;AbsoluteConstraints x=&quot;30&quot; y=&quot;100&quot; width=&quot;98&quot; height=&quot;23&quot;/&gt;
+                  &lt;/Constraint&gt;
+                &lt;/Constraints&gt;
+
+Index: GUI.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/GUI.java,v
+retrieving revision 1.11
+retrieving revision 1.12
+diff -C2 -d -r1.11 -r1.12
+*** GUI.java	15 May 2005 11:11:11 -0000	1.11
+--- GUI.java	15 May 2005 11:56:26 -0000	1.12
+***************
+*** 63,66 ****
+--- 63,67 ----
+          fillLabel = new javax.swing.JLabel();
+          fillColorChooserButton = new javax.swing.JButton();
++         fillCheckBox = new javax.swing.JCheckBox();
+          statusBar = new javax.swing.JLabel();
+          backgroundPanel = new javax.swing.JPanel();
+***************
+*** 156,160 ****
+          outlineLabel.setText(&quot;Outline:&quot;);
+          colorChooserPanel.add(outlineLabel);
+!         outlineLabel.setBounds(0, 60, 70, 15);
+  
+          outlineColorChooserButton.setBackground(drawingPanel.getCurrentOutlineColor());
+--- 157,161 ----
+          outlineLabel.setText(&quot;Outline:&quot;);
+          colorChooserPanel.add(outlineLabel);
+!         outlineLabel.setBounds(0, 50, 70, 15);
+  
+          outlineColorChooserButton.setBackground(drawingPanel.getCurrentOutlineColor());
+***************
+*** 170,174 ****
+          fillLabel.setText(&quot;Fill:&quot;);
+          colorChooserPanel.add(fillLabel);
+!         fillLabel.setBounds(0, 100, 70, 15);
+  
+          fillColorChooserButton.setBackground(drawingPanel.getCurrentFillColor());
+--- 171,175 ----
+          fillLabel.setText(&quot;Fill:&quot;);
+          colorChooserPanel.add(fillLabel);
+!         fillLabel.setBounds(0, 100, 30, 15);
+  
+          fillColorChooserButton.setBackground(drawingPanel.getCurrentFillColor());
+***************
+*** 180,184 ****
+  
+          colorChooserPanel.add(fillColorChooserButton);
+!         fillColorChooserButton.setBounds(10, 120, 50, 10);
+  
+          toolsToolbar.add(colorChooserPanel);
+--- 181,195 ----
+  
+          colorChooserPanel.add(fillColorChooserButton);
+!         fillColorChooserButton.setBounds(10, 130, 50, 10);
+! 
+!         fillCheckBox.setSelected(true);
+!         fillCheckBox.addActionListener(new java.awt.event.ActionListener() {
+!             public void actionPerformed(java.awt.event.ActionEvent evt) {
+!                 fillCheckBoxActionPerformed(evt);
+!             }
+!         });
+! 
+!         colorChooserPanel.add(fillCheckBox);
+!         fillCheckBox.setBounds(30, 100, 98, 23);
+  
+          toolsToolbar.add(colorChooserPanel);
+***************
+*** 380,383 ****
+--- 391,398 ----
+      // &lt;/editor-fold&gt;//GEN-END:initComponents
+  
++     private void fillCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillCheckBoxActionPerformed
++         drawingPanel.setFill(fillCheckBox.isSelected());
++     }//GEN-LAST:event_fillCheckBoxActionPerformed
++ 
+      private void fillColorChooserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillColorChooserButtonActionPerformed
+          colorChooserType = &quot;fill&quot;;
+***************
+*** 723,726 ****
+--- 738,742 ----
+      private javax.swing.JButton ereaserButton;
+      private javax.swing.JMenuItem exitMenuItem;
++     private javax.swing.JCheckBox fillCheckBox;
+      private javax.swing.JButton fillColorChooserButton;
+      private javax.swing.JLabel fillLabel;
+
+Index: SocketConnection.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/SocketConnection.java,v
+retrieving revision 1.13
+retrieving revision 1.14
+diff -C2 -d -r1.13 -r1.14
+*** SocketConnection.java	15 May 2005 11:11:12 -0000	1.13
+--- SocketConnection.java	15 May 2005 11:56:26 -0000	1.14
+***************
+*** 262,266 ****
+       * @see netboard.SocketConnection#timer
+       */
+!     private final int communicationFreq = 100;
+      /**
+       * Timeout to be set for the network connection
+--- 262,266 ----
+       * @see netboard.SocketConnection#timer
+       */
+!     private final int communicationFreq = 500;
+      /**
+       * Timeout to be set for the network connection
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000082.html">[netboard-cvs] netboard DrawingPanel.java,1.5,1.6 GUI.form,1.8,1.9 GUI.java,1.10,1.11 Main.java,1.9,1.10 SerializableImage.java,1.3,1.4 SocketConnection.java,1.12,1.13
+</A></li>
+	<LI>Next message: <A HREF="000083.html">[netboard-cvs] netboard/dist/javadoc allclasses-frame.html,1.9,1.10 allclasses-noframe.html,1.9,1.10 constant-values.html,1.9,1.10 deprecated-list.html,1.9,1.10 help-doc.html,1.9,1.10 index-all.html,1.9,1.10 index.html,1.9,1.10 overview-tree.html,1.9,1.10 serialized-form.html,1.9,1.10
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

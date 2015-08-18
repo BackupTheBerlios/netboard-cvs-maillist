@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard SocketConnection.java,1.5,1.6
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-May/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20SocketConnection.java%2C1.5%2C1.6&In-Reply-To=%3C200505021130.j42BUOm13889%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000050.html">
+   <LINK REL="Next"  HREF="000052.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard SocketConnection.java,1.5,1.6</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20SocketConnection.java%2C1.5%2C1.6&In-Reply-To=%3C200505021130.j42BUOm13889%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard SocketConnection.java,1.5,1.6">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Mon May  2 13:30:24 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000050.html">[netboard-cvs] netboard/dist netboard.jar,1.15,1.16
+</A></li>
+        <LI>Next message: <A HREF="000052.html">[netboard-cvs] netboard/dist netboard.jar,1.16,1.17
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv11774
+
+Modified Files:
+	SocketConnection.java 
+Log Message:
+some more messing with SocketConnection class - current goal is to make it disconnect quietly and reconnect.
+
+Index: SocketConnection.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/SocketConnection.java,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -C2 -d -r1.5 -r1.6
+*** SocketConnection.java	2 May 2005 10:37:30 -0000	1.5
+--- SocketConnection.java	2 May 2005 11:29:47 -0000	1.6
+***************
+*** 35,52 ****
+          public void run() {
+              try {
+!                 netboard.SerializableImage image;
+!                            
+                  image = new netboard.SerializableImage(Main.getGUI().getImage());
+-                 out.writeInt(PACKET_IMG);
+                  out.writeObject(image); 
+                  image = null;
+-                  
+-                 int packet_type = in.readInt();
+                  
+!                 if (packet_type == PACKET_IMG) {
+                      image = (netboard.SerializableImage)in.readUnshared();                
+                      Main.getGUI().setImage(image.getImage()); 
+!                     image = null;                            
+!                 } else if (packet_type == PACKET_END) {
+                      disconnect();
+                  } else {
+--- 35,52 ----
+          public void run() {
+              try {
+!                 netboard.SerializableImage image;                
+! 
+!                 out.writeInt(PACKET_IMG);                
+                  image = new netboard.SerializableImage(Main.getGUI().getImage());
+                  out.writeObject(image); 
+                  image = null;
+                  
+!                 int packetType = in.readInt();
+! 
+!                 if (packetType == PACKET_IMG) {                    
+                      image = (netboard.SerializableImage)in.readUnshared();                
+                      Main.getGUI().setImage(image.getImage()); 
+!                     image = null;                
+!                 } else if (packetType == PACKET_END) {
+                      disconnect();
+                  } else {
+***************
+*** 55,58 ****
+--- 55,59 ----
+              } catch (java.io.IOException e) {
+                  Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
++                 disconnect();
+                  // FIXME: do something more sane...
+              } catch (java.lang.ClassNotFoundException e) {
+***************
+*** 127,136 ****
+          if (Main.isConnected() == true) {
+              try {
+-                 out.writeInt(PACKET_END);
+                  timer.cancel();
+                  in.close();
+                  out.close();
+              } catch (java.io.IOException e) {
+!                 Main.getGUI().showError(&quot;Error while disconnection: &quot; +  e.getMessage());                
+              }
+              
+--- 128,148 ----
+          if (Main.isConnected() == true) {
+              try {
+                  timer.cancel();
++                 
++                 out.writeInt(PACKET_END);
++                 
+                  in.close();
++                 in = null;
+                  out.close();
++                 out = null;
++                 
++                 socket.close();
++                 socket = null;
++                 if (serverSocket != null) {
++                     serverSocket.close();
++                     serverSocket = null;
++                 }
+              } catch (java.io.IOException e) {
+!                 Main.getGUI().showError(&quot;Error while disconnecting: &quot; +  e.getMessage());                
+              }
+              
+***************
+*** 146,150 ****
+      private java.net.Socket socket = null;
+      /**
+!      * Object representing the connection socket for the server mode
+       */
+      private java.net.ServerSocket serverSocket = null;
+--- 158,162 ----
+      private java.net.Socket socket = null;
+      /**
+!      * Object representing the listening socket for the server mode
+       */
+      private java.net.ServerSocket serverSocket = null;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000050.html">[netboard-cvs] netboard/dist netboard.jar,1.15,1.16
+</A></li>
+	<LI>Next message: <A HREF="000052.html">[netboard-cvs] netboard/dist netboard.jar,1.16,1.17
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,506 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard Main.java,1.10,1.11 SocketConnection.java,1.14,1.15
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-May/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20Main.java%2C1.10%2C1.11%20SocketConnection.java%2C1.14%2C1.15&In-Reply-To=%3C200505191553.j4JFrMm03991%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000093.html">
+   <LINK REL="Next"  HREF="000095.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard Main.java,1.10,1.11 SocketConnection.java,1.14,1.15</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20Main.java%2C1.10%2C1.11%20SocketConnection.java%2C1.14%2C1.15&In-Reply-To=%3C200505191553.j4JFrMm03991%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard Main.java,1.10,1.11 SocketConnection.java,1.14,1.15">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Thu May 19 17:53:22 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000093.html">[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.10,1.11 GUI.PNGFilter.html,1.3,1.4 GUI.html,1.10,1.11 Main.html,1.10,1.11 SerializableImage.html,1.10,1.11 SocketConnection.Exception.html,1.3,1.4 SocketConnection.html,1.6,1.7 package-frame.html,1.10,1.11 package-summary.html,1.10,1.11 package-tree.html,1.10,1.11 package-use.html,1.10,1.11
+</A></li>
+        <LI>Next message: <A HREF="000095.html">[netboard-cvs] netboard/dist/javadoc/netboard SocketConnection.ReadingTask.html,NONE,1.1 SocketConnection.WritingTask.html,NONE,1.1 SocketConnection.CommunicationTask.html,1.5,NONE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv5625
+
+Modified Files:
+	Main.java SocketConnection.java 
+Log Message:
+major redesign of the network connection handling - now we use different
+ports and threads for reading and writing.
++ javadoc documenting these changes.
+
+
+Index: Main.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/Main.java,v
+retrieving revision 1.10
+retrieving revision 1.11
+diff -C2 -d -r1.10 -r1.11
+*** Main.java	15 May 2005 11:11:12 -0000	1.10
+--- Main.java	19 May 2005 15:52:49 -0000	1.11
+***************
+*** 88,97 ****
+      
+      /**
+!      * Returns number of the port used for the network connections
+!      * @return Number of the port used for the network connections
+!      * @see netboard.Main#port
+       */
+!     public static int getPort() {
+!         return port;
+      }
+      
+--- 88,106 ----
+      
+      /**
+!      * Number of the port used for the writing part of the network connection
+!      * return Number of the port used for the writing part of the network connection
+!      * @see netboard.Main#writingPort
+       */
+!     public static int getWritingPort() {
+!         return writingPort;
+!     }
+! 
+!     /**
+!      * Number of the port used for the reading part of the network connection
+!      * return Number of the port used for the reading part of the network connection
+!      * @see netboard.Main#readingPort
+!      */
+!     public static int getReadingPort() {
+!         return readingPort;
+      }
+      
+***************
+*** 246,253 ****
+      private static final String codename = &quot;Raven and the Rose&quot;;
+      /**
+!      * Number of the port used for the netwosk connections
+!      * @see netboard.Main#getPort()
+       */
+!     private static int port = 39832;
+      /**
+       * Current mode of network operations: &lt;CODE&gt;Main.SERVER_MODE&lt;/CODE&gt; - server, &lt;CODE&gt;Main.CLIENT_MODE&lt;/CODE&gt; - client
+--- 255,267 ----
+      private static final String codename = &quot;Raven and the Rose&quot;;
+      /**
+!      * Number of the port used for the writing part of the network connection
+!      * @see netboard.Main#getWritingPort()
+       */
+!     private static final int writingPort = 39831;
+!     /**
+!      * Number of the port used for the reading part of the network connection
+!      * @see netboard.Main#getReadingPort()
+!      */    
+!     private static final int readingPort = 39832;    
+      /**
+       * Current mode of network operations: &lt;CODE&gt;Main.SERVER_MODE&lt;/CODE&gt; - server, &lt;CODE&gt;Main.CLIENT_MODE&lt;/CODE&gt; - client
+
+Index: SocketConnection.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/SocketConnection.java,v
+retrieving revision 1.14
+retrieving revision 1.15
+diff -C2 -d -r1.14 -r1.15
+*** SocketConnection.java	15 May 2005 11:56:26 -0000	1.14
+--- SocketConnection.java	19 May 2005 15:52:49 -0000	1.15
+***************
+*** 34,49 ****
+      
+      /**
+!      * Class representing the actions performed by the timer (i.e. reading data from the socket and writing to it)
+!      * @see netboard.SocketConnection#communicationTask
+!      * @see netboard.SocketConnection#timer
+       */
+!     private class CommunicationTask extends java.util.TimerTask {
+          /**
+!          * Performes communication tasks (i.e. sending and receiving data)
+           */
+          public void run() {
+              if (disconnect == true) {
+                  try {
+!                     timer.cancel();
+                      Main.setConnected(false);
+  
+--- 34,48 ----
+      
+      /**
+!      * Class representing the writing actions performed by the timer
+!      * @see netboard.SocketConnection#writingTimer
+       */
+!     private class WritingTask extends java.util.TimerTask {
+          /**
+!          * Performes the writing tasks
+           */
+          public void run() {
+              if (disconnect == true) {
+                  try {
+!                     writingTimer.cancel();
+                      Main.setConnected(false);
+  
+***************
+*** 52,60 ****
+                          out.flush();
+                          sentPacketEnd = true;
+! 
+!                         while (in.readInt() != PACKET_END_ACK) { }
+                      }
+  
+!                     socket.close();
+                  } catch (java.io.IOException e) {
+                      if (sentPacketEnd == false) {
+--- 51,59 ----
+                          out.flush();
+                          sentPacketEnd = true;
+!                         
+!                         while (in.readInt() != PACKET_END_ACK) { }                        
+                      }
+  
+!                     writingSocket.close();
+                  } catch (java.io.IOException e) {
+                      if (sentPacketEnd == false) {
+***************
+*** 69,82 ****
+                  try {
+                      netboard.SerializableImage image;
+-                     int packetType = PACKET_GREET;
+  
+                      if (firstPacket == true) {
+                          out.writeInt(PACKET_GREET);
+                          firstPacket = false;
+-                     } else {
+-                         packetType = in.readInt();
+                      }
+  
+!                     if (packetType != PACKET_END &amp;&amp; socket.isOutputShutdown() == false &amp;&amp; foundEOF == sentPacketEnd == receivedPacketEnd == false) {
+                          out.writeInt(PACKET_IMG);
+                          image = new netboard.SerializableImage(Main.getGUI().getImage());
+--- 68,78 ----
+                  try {
+                      netboard.SerializableImage image;
+  
+                      if (firstPacket == true) {
+                          out.writeInt(PACKET_GREET);
+                          firstPacket = false;
+                      }
+  
+!                     if (writingSocket.isOutputShutdown() == false &amp;&amp; foundEOF == sentPacketEnd == receivedPacketEnd == false) {                        
+                          out.writeInt(PACKET_IMG);
+                          image = new netboard.SerializableImage(Main.getGUI().getImage());
+***************
+*** 86,113 ****
+                          System.gc();
+                      }
+  
+                      if (packetType == PACKET_GREET) {
+!                     } else if (packetType == PACKET_IMG &amp;&amp; socket.isInputShutdown() == false &amp;&amp; foundEOF == sentPacketEnd == receivedPacketEnd == false) {
+!                         try {
+!                             image = (netboard.SerializableImage)in.readUnshared();
+!                             Main.getGUI().setImage(image.getImage());
+!                             image = null;
+!                             System.gc();
+!                         } catch (java.io.OptionalDataException e) {
+!                             if (e.eof == true) {
+!                                 foundEOF = true;
+!                                 
+!                                 Main.disconnect();
+!                                 return;
+!                                 // FIXME: do something more sane...
+!                             } else if (e.length &gt; 0 &amp;&amp; in.readInt() == PACKET_END) {
+!                                 receivedPacketEnd = true;
+!                                 out.writeInt(PACKET_END_ACK);
+!                                 
+!                                 Main.disconnect();
+!                                 return;
+!                                 // FIXME: do something more sane...
+!                             }
+!                         }
+                      } else if (packetType == PACKET_END &amp;&amp; foundEOF == sentPacketEnd == receivedPacketEnd == false) {
+                          receivedPacketEnd = true;
+--- 82,145 ----
+                          System.gc();
+                      }
++                 } catch (java.net.SocketException e) {
++                     if (sentPacketEnd == receivedPacketEnd == foundEOF == false) {
++                         Main.getGUI().showError(&quot;Network error: &quot; + e.getMessage());
++                     }
++                     
++                     Main.disconnect();
++                     return;
++                     // FIXME: do something more sane...
++                 } catch (java.io.IOException e) {
++                     if (sentPacketEnd == receivedPacketEnd == foundEOF == false) {                    
++                         Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
++                     }
++                     
++                     Main.disconnect();
++                     return;
++                     // FIXME: do something more sane...
++                 }
++             }
++         }
++     }
++ 
++     /**
++      * Class representing the reading actions performed by the timer
++      * @see netboard.SocketConnection#readingTimer
++      */
++     private class ReadingTask extends java.util.TimerTask {
++         /**
++          * Performes communication tasks (i.e. sending and receiving data)
++          */
++         public void run() {
++             if (disconnect == true) {
++                 try {
++                     readingTimer.cancel();
++                     Main.setConnected(false);
++ 
++                     readingSocket.close();
++                 } catch (java.io.IOException e) {
++                     if (sentPacketEnd == false) {
++                         Main.getGUI().showError(&quot;Error while disconnecting: &quot; +  e.getMessage());
++                     } 
++                     // FIXME: do something more sane...
++                 }
++ 
++                 Main.getGUI().setStatus(&quot;Disconnected (&quot; + 
++                         ((sentPacketEnd == true) ? &quot;on your demand&quot; : &quot;on the other side's demand&quot;) + &quot;)&quot;);
++             } else {
++                 try {
++                     netboard.SerializableImage image;
++                     int packetType = PACKET_GREET;
++ 
++                     if (firstPacket == false) {                    
++                         packetType = in.readInt();
++                     }
+  
+                      if (packetType == PACKET_GREET) {
+!                     } else if (packetType == PACKET_IMG &amp;&amp; readingSocket.isInputShutdown() == false &amp;&amp; foundEOF == sentPacketEnd == receivedPacketEnd == false) {
+!                         image = (netboard.SerializableImage)in.readUnshared();
+!                         Main.getGUI().setImage(image.getImage());
+!                         image = null;
+!                         System.gc();
+                      } else if (packetType == PACKET_END &amp;&amp; foundEOF == sentPacketEnd == receivedPacketEnd == false) {
+                          receivedPacketEnd = true;
+***************
+*** 141,146 ****
+              }
+          }
+!     }
+! 
+      /**
+       * Creates a new instance of SocketConnection and starts the connection thread
+--- 173,178 ----
+              }
+          }
+!     }    
+!     
+      /**
+       * Creates a new instance of SocketConnection and starts the connection thread
+***************
+*** 160,170 ****
+  
+              try {
+!                 serverSocket = new java.net.ServerSocket(Main.getPort());
+!                 socket = serverSocket.accept();
+!                 socket.setReuseAddress(false);
+!                 socket.setSoTimeout(timeout);
+  
+!                 out = new java.io.ObjectOutputStream(socket.getOutputStream());
+!                 in = new java.io.ObjectInputStream(socket.getInputStream());
+              } catch (java.io.IOException e) {
+                  Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
+--- 192,206 ----
+  
+              try {
+!                 writingServerSocket = new java.net.ServerSocket(Main.getWritingPort());
+!                 readingServerSocket = new java.net.ServerSocket(Main.getReadingPort());
+!                 writingSocket = writingServerSocket.accept();
+!                 writingSocket.setReuseAddress(false);
+!                 writingSocket.setSoTimeout(timeout);
+!                 readingSocket = readingServerSocket.accept();
+!                 readingSocket.setReuseAddress(false);
+!                 readingSocket.setSoTimeout(timeout);
+  
+!                 out = new java.io.ObjectOutputStream(writingSocket.getOutputStream());
+!                 in = new java.io.ObjectInputStream(readingSocket.getInputStream());
+              } catch (java.io.IOException e) {
+                  Main.getGUI().showError(&quot;Error communicating with peer: &quot; + e.getMessage());
+***************
+*** 176,185 ****
+              
+              try {
+!                 socket = new java.net.Socket(destination, Main.getPort());
+!                 socket.setReuseAddress(false);
+!                 socket.setSoTimeout(timeout);                
+                  
+!                 out = new java.io.ObjectOutputStream(socket.getOutputStream());
+!                 in = new java.io.ObjectInputStream(socket.getInputStream());        
+              } catch (java.net.UnknownHostException e) {
+                  Main.getGUI().showError(&quot;Unknown host: &quot; + destination);
+--- 212,224 ----
+              
+              try {
+!                 writingSocket = new java.net.Socket(destination, Main.getReadingPort());
+!                 readingSocket = new java.net.Socket(destination, Main.getWritingPort());
+!                 writingSocket.setReuseAddress(false);
+!                 writingSocket.setSoTimeout(timeout);                
+!                 readingSocket.setReuseAddress(false);
+!                 readingSocket.setSoTimeout(timeout);                
+                  
+!                 out = new java.io.ObjectOutputStream(writingSocket.getOutputStream());
+!                 in = new java.io.ObjectInputStream(readingSocket.getInputStream());        
+              } catch (java.net.UnknownHostException e) {
+                  Main.getGUI().showError(&quot;Unknown host: &quot; + destination);
+***************
+*** 193,202 ****
+          
+          Main.setConnected(true);        
+!         Main.getGUI().setStatus(&quot;Connected to &quot; + socket.getInetAddress().getHostName());           
+  
+!         timer = new java.util.Timer(&quot;CommunicationThread&quot;, false);
+!         communicationTask = new CommunicationTask();
+          
+!         timer.schedule(communicationTask, 0, communicationFreq);
+      }
+  
+--- 232,242 ----
+          
+          Main.setConnected(true);        
+!         Main.getGUI().setStatus(&quot;Connected to &quot; + writingSocket.getInetAddress().getHostName());           
+  
+!         writingTimer = new java.util.Timer(&quot;WritingThread&quot;, false);
+!         readingTimer = new java.util.Timer(&quot;ReadingThread&quot;, false);        
+          
+!         writingTimer.schedule(new WritingTask(), 0, communicationFreq);
+!         readingTimer.schedule(new ReadingTask(), 0, communicationFreq);        
+      }
+  
+***************
+*** 204,208 ****
+       * Provides that when next communication task is performed, the connection will be closed
+       * @see netboard.SocketConnection#disconnect
+!      * @see netboard.SocketConnection.CommunicationTask#run()
+       * @see netboard.SocketConnection#SocketConnection
+       * @see netboard.Main#connected
+--- 244,249 ----
+       * Provides that when next communication task is performed, the connection will be closed
+       * @see netboard.SocketConnection#disconnect
+!      * @see netboard.SocketConnection.WritingTask#run()
+!      * @see netboard.SocketConnection.ReadingTask#run()
+       * @see netboard.SocketConnection#SocketConnection
+       * @see netboard.Main#connected
+***************
+*** 230,240 ****
+      // My variables declaration
+      /**
+!      * Object representing the connection socket
+       */
+!     private java.net.Socket socket = null;
+      /**
+!      * Object representing the listening socket for the server mode
+       */
+!     private java.net.ServerSocket serverSocket = null;
+      /**
+       * Object representing the output stream
+--- 271,289 ----
+      // My variables declaration
+      /**
+!      * Object representing the writing socket
+       */
+!     private java.net.Socket writingSocket = null;
+      /**
+!      * Object representing the reading socket
+       */
+!     private java.net.Socket readingSocket = null;    
+!     /**
+!      * Object representing the socket listening on the writing port (for the server mode)
+!      */
+!     private java.net.ServerSocket writingServerSocket = null;
+!     /**
+!      * Object representing the socket listening on the reading port (for the server mode)
+!      */
+!     private java.net.ServerSocket readingServerSocket = null;    
+      /**
+       * Object representing the output stream
+***************
+*** 246,264 ****
+      private java.io.ObjectInputStream in;    
+      /**
+!      * Timer which handles communication tasks
+!      * @see netboard.SocketConnection.CommunicationTask
+!      * @see netboard.SocketConnection#communicationTask
+       * @see netboard.SocketConnection#communicationFreq
+       */
+!     private java.util.Timer timer;
+      /**
+!      * Object representing the tasks which are performed by the timer
+!      * @see netboard.SocketConnection.CommunicationTask
+!      * @see netboard.SocketConnection#timer
+       */
+!     private CommunicationTask communicationTask;
+      /**
+       * The frequency at which data should be written to the socket and read from it
+!      * @see netboard.SocketConnection#timer
+       */
+      private final int communicationFreq = 500;
+--- 295,313 ----
+      private java.io.ObjectInputStream in;    
+      /**
+!      * Timer which handles writing tasks
+!      * @see netboard.SocketConnection.WritingTask
+       * @see netboard.SocketConnection#communicationFreq
+       */
+!     private java.util.Timer writingTimer;
+      /**
+!      * Timer which handles reading tasks
+!      * @see netboard.SocketConnection.ReadingTask
+!      * @see netboard.SocketConnection#communicationFreq
+       */
+!     private java.util.Timer readingTimer;    
+      /**
+       * The frequency at which data should be written to the socket and read from it
+!      * @see netboard.SocketConnection#writingTimer
+!      * @see netboard.SocketConnection#readingTimer
+       */
+      private final int communicationFreq = 500;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000093.html">[netboard-cvs] netboard/dist/javadoc/netboard DrawingPanel.html,1.10,1.11 GUI.PNGFilter.html,1.3,1.4 GUI.html,1.10,1.11 Main.html,1.10,1.11 SerializableImage.html,1.10,1.11 SocketConnection.Exception.html,1.3,1.4 SocketConnection.html,1.6,1.7 package-frame.html,1.10,1.11 package-summary.html,1.10,1.11 package-tree.html,1.10,1.11 package-use.html,1.10,1.11
+</A></li>
+	<LI>Next message: <A HREF="000095.html">[netboard-cvs] netboard/dist/javadoc/netboard SocketConnection.ReadingTask.html,NONE,1.1 SocketConnection.WritingTask.html,NONE,1.1 SocketConnection.CommunicationTask.html,1.5,NONE
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>

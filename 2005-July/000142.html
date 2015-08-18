@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [netboard-cvs] netboard DrawingPanel.java,1.18,1.19
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/netboard-cvs/2005-July/index.html" >
+   <LINK REL="made" HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.18%2C1.19&In-Reply-To=%3C200507051134.j65BYrI12256%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000141.html">
+   <LINK REL="Next"  HREF="000143.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[netboard-cvs] netboard DrawingPanel.java,1.18,1.19</H1>
+    <B>golish</B> 
+    <A HREF="mailto:netboard-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bnetboard-cvs%5D%20netboard%20DrawingPanel.java%2C1.18%2C1.19&In-Reply-To=%3C200507051134.j65BYrI12256%40bat.berlios.de%3E"
+       TITLE="[netboard-cvs] netboard DrawingPanel.java,1.18,1.19">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Tue Jul  5 13:34:53 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000141.html">[netboard-cvs] netboard DrawingPanel.java,1.17,1.18
+</A></li>
+        <LI>Next message: <A HREF="000143.html">[netboard-cvs] netboard DrawingPanel.java,1.19,1.20
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#142">[ date ]</a>
+              <a href="thread.html#142">[ thread ]</a>
+              <a href="subject.html#142">[ subject ]</a>
+              <a href="author.html#142">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/netboard/netboard
+In directory sheep:/tmp/cvs-serv27987
+
+Modified Files:
+	DrawingPanel.java 
+Log Message:
+last part of the style-fixes. yes, I'm a coding-standards fanatic ;p
+
+
+Index: DrawingPanel.java
+===================================================================
+RCS file: /cvsroot/netboard/netboard/DrawingPanel.java,v
+retrieving revision 1.18
+retrieving revision 1.19
+diff -C2 -d -r1.18 -r1.19
+*** DrawingPanel.java	5 Jul 2005 11:18:43 -0000	1.18
+--- DrawingPanel.java	5 Jul 2005 11:34:50 -0000	1.19
+***************
+*** 70,78 ****
+      private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+          resetXorCoords();
+          if (currentTool == LINE_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0) {
+              currentColor = currentOutlineColor;
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);
+              
+!             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3 &amp;&amp; brokenLine==true) {
+                  lastX = evt.getX();
+                  lastY = evt.getY();
+--- 70,79 ----
+      private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+          resetXorCoords();
++         
+          if (currentTool == LINE_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0) {
+              currentColor = currentOutlineColor;
+              drawLine(evt.getX(), evt.getY(), lastX, lastY);
+              
+!             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3 &amp;&amp; brokenLine == true) {
+                  lastX = evt.getX();
+                  lastY = evt.getY();
+***************
+*** 83,99 ****
+          int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+          
+!         if (currentTool == OVAL_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0){
+              drawOval( x, y, Math.abs(lastX - evt.getX()), Math.abs(lastY - evt.getY()));
+          }
+!         if (currentTool == RECT_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0){
+              drawRect( x, y, Math.abs(lastX - evt.getX()), Math.abs(lastY - evt.getY()));
+          }
+!         if(getCursor().getType()!=java.awt.Cursor.DEFAULT_CURSOR &amp;&amp; brokenLine==false){
+              java.awt.Cursor normalCursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
+              setCursor(normalCursor);
+          }
+!         repaint();
+!         if(brokenLine==false)
+              resetCoords();
+      }//GEN-LAST:event_formMouseReleased
+  
+--- 84,104 ----
+          int y = (evt.getY() - lastY &gt; 0) ? lastY : evt.getY();
+          
+!         if (currentTool == OVAL_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0) {
+              drawOval( x, y, Math.abs(lastX - evt.getX()), Math.abs(lastY - evt.getY()));
+          }
+!         
+!         if (currentTool == RECT_TOOL &amp;&amp; lastX &gt;= 0 &amp;&amp; lastY &gt;= 0) {
+              drawRect( x, y, Math.abs(lastX - evt.getX()), Math.abs(lastY - evt.getY()));
+          }
+!         
+!         if (getCursor().getType() != java.awt.Cursor.DEFAULT_CURSOR &amp;&amp; brokenLine == false) {
+              java.awt.Cursor normalCursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
+              setCursor(normalCursor);
+          }
+!         
+!         if(brokenLine == false)
+              resetCoords();
++                         
++         repaint();
+      }//GEN-LAST:event_formMouseReleased
+  
+***************
+*** 104,108 ****
+          if ((currentTool == LINE_TOOL || currentTool == OVAL_TOOL || currentTool == RECT_TOOL)
+              &amp;&amp; evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+!             if(brokenLine==false){
+                  lastX = evt.getX();
+                  lastY = evt.getY();
+--- 109,113 ----
+          if ((currentTool == LINE_TOOL || currentTool == OVAL_TOOL || currentTool == RECT_TOOL)
+              &amp;&amp; evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+!             if (brokenLine == false) {
+                  lastX = evt.getX();
+                  lastY = evt.getY();
+***************
+*** 122,126 ****
+          
+          if (currentTool == LINE_TOOL &amp;&amp; brokenLine == true) {
+!             if(lastXorX != -1 &amp;&amp; lastXorY != -1) {
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+              }
+--- 127,131 ----
+          
+          if (currentTool == LINE_TOOL &amp;&amp; brokenLine == true) {
+!             if (lastXorX &gt;= 0 &amp;&amp; lastXorY &gt;= 0) {
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+              }
+***************
+*** 285,289 ****
+              lastXorX = evt.getX();
+              lastXorY = evt.getY();            
+!         } else if (currentTool == LINE_TOOL &amp;&amp; brokenLine==true) {
+              if (lastXorX &gt;= 0 &amp;&amp; lastXorY &gt;= 0) {
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+--- 290,294 ----
+              lastXorX = evt.getX();
+              lastXorY = evt.getY();            
+!         } else if (currentTool == LINE_TOOL &amp;&amp; brokenLine == true) {
+              if (lastXorX &gt;= 0 &amp;&amp; lastXorY &gt;= 0) {
+                  drawXorLine(lastXorX, lastXorY, lastX, lastY);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000141.html">[netboard-cvs] netboard DrawingPanel.java,1.17,1.18
+</A></li>
+	<LI>Next message: <A HREF="000143.html">[netboard-cvs] netboard DrawingPanel.java,1.19,1.20
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#142">[ date ]</a>
+              <a href="thread.html#142">[ thread ]</a>
+              <a href="subject.html#142">[ subject ]</a>
+              <a href="author.html#142">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/netboard-cvs">More information about the netboard-cvs
+mailing list</a><br>
+</body></html>
